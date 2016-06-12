@@ -1,8 +1,8 @@
 import {Component} from 'angular2/core';
 import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
 import {HeaderComponent} from '../header/header.component';
-import {AboutComponent} from '../about/about.component';
-import {HomeComponent} from '../home/home.component';
+import {DashboardComponent} from '../dashboard/dashboard.component';
+import {RegionsService} from "../../shared/services/src/regions.service";
 
 @Component({
     selector: 'app',
@@ -12,11 +12,13 @@ import {HomeComponent} from '../home/home.component';
     directives: [
         ROUTER_DIRECTIVES,
         HeaderComponent
+    ],
+    providers: [
+        RegionsService,
     ]
 })
 @RouteConfig([
-    {path: '/', name: 'Home', component: HomeComponent},
-    {path: '/about', name: 'About', component: AboutComponent}
+    {path: '/', name: 'Dashboard', component: DashboardComponent, useAsDefault: true}
 ])
 export class AppComponent {
 }
