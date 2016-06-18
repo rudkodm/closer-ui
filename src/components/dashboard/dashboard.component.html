@@ -1,9 +1,43 @@
-<div>
-    <ul>
-        <li *ngFor="#r of regions">
-            <b><span>id: </span></b>{{r.id}} <br/>
-            <b><span>name: </span></b>{{r.name}} <br/>
-            <b><span>description: </span></b>{{r.description}}
-        </li>
-    </ul>
+<div class="card text-xs-center" id="dashboard_regions">
+    <div class="card-header">
+        Top Regions
+    </div>
+    <div class="card-block">
+        <table class="table table-hover">
+            <thead class="thead">
+            <tr>
+                <th>#</th>
+                <th>json</th>
+                <th>promotions</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr *ngFor="#r of regions">
+                <td>{{r.id}}</td>
+                <td collapsible [collapsedByDefault]="true">
+                    <pre>{{r | json}}</pre>
+                </td>
+                <td>
+                    <a (click)="selectRegion(r)"><span
+                            class="label label-default">{{r.promotions.length}}</span></a><br>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
+
+
+<div *ngIf="selectedRegion" class="card" id="dashboard_promotions">
+    <div class="card-header">
+        Promotions
+    </div>
+    <div class="card-block" *ngFor="#p of selectedPromotions">
+        <pre class="card-text">{{p | json}}</pre>
+    </div>
+    <div class="card-footer text-muted">
+        <button type="button" class="btn btn-secondary-outline btn-sm" (click)="close()">Close</button>
+    </div>
+</div>
+
