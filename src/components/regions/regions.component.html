@@ -1,1 +1,68 @@
-<h1> Hey, I'm RegionsComponent !</h1>
+<div class="card" id="region-search">
+    <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search for Region with ID ..." #regionId name="regionId" >
+        <span class="input-group-btn">
+        <button class="btn btn-secondary" type="button" (click)="findRegionWithId(regionId)">Find</button>
+        </span>
+    </div>
+</div>
+<div class="card" id="region-form">
+    <div class="card-header">
+        Region<span *ngIf="region">: {{region.id}}</span>
+    </div>
+    <div class="card-block">
+        <form>
+
+            <div class="form-group row">
+                <label for="regionName" class="col-sm-2 form-control-label">Name</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="regionName" placeholder="Region Name" [(ngModel)]="region.name" name="regionName">
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <label for="regionDescription" class="col-sm-2 form-control-label">Description</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" id="regionDescription" rows="3"
+                              placeholder="Region Description" [(ngModel)]="region.description" name="regionDescription"></textarea>
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <label class="col-sm-2 form-control-label">Location</label>
+                <div class="col-xs-2">
+                    <input type="number" class="form-control" placeholder="Latitude" [(ngModel)]="region.zone.center.latitude" name="regionZoneLatitude">
+                </div>
+                <div class="col-xs-2">
+                    <input type="number" class="form-control" placeholder="Longitude" [(ngModel)]="region.zone.center.longitude" name="regionZoneLongitude">
+                </div>
+                <div class="col-xs-2">
+                    <input type="number" class="form-control" placeholder="Radius" [(ngModel)]="region.zone.radius" name="regionZoneRadius">
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <label class="col-sm-2">Promotions</label>
+                <div class="col-sm-10">
+                    <select multiple="" class="form-control" id="regionPromotions" name="regionPromotions">
+                        <option *ngFor="let promoId of region.promotions">{{promoId}}</option>
+                    </select>
+                    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                        <button type="button" class="btn btn-secondary">Select</button>
+                        <button type="button" class="btn btn-secondary">Add</button>
+                        <button type="button" class="btn btn-secondary">Delete</button>
+                    </div>
+                </div>
+            </div>
+
+
+        </form>
+    </div>
+    <div class="card-footer text-muted">
+        <button class="btn btn-secondary-outline btn-sm" type="button" (click)="clear()">Clear</button>
+        <button class="btn btn-secondary-outline btn-sm" type="button" (click)="submit()">Submit</button>
+    </div>
+</div>

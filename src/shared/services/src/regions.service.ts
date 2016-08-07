@@ -1,23 +1,36 @@
-/**
- * Service RegionsService
- */
-import {Injectable} from 'angular2/core';
-import {Http} from 'angular2/http';
+import {Injectable} from '@angular/core';
+import {Http, Headers} from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 import {AppConfiguration} from "../../../config";
 
 @Injectable()
 export class RegionsService {
-
-    private url;
-
     constructor(private http:Http, private conf:AppConfiguration) {
-        this.url = conf.regionsURL();
+    }
+    getRegions():Promise<Region[]> {
+        return this.http.get(this.conf.regionsURL())
+            .toPromise()
+            .then(response => response.json());
     }
 
-    getRegions():Promise<Region[]> {
-        return this.http.get(this.url)
+    getRegionById(id:string):Promise<Region> {
+        return this.http.get(this.conf.regionByIdURL(id))
+            .toPromise()
+            .then(response => response.json())
+    }
+
+
+    update(region:Region) {
+        let headers = new Headers({'Content-Type': 'application/json'});
+        return this.http.put(this.conf.regionByIdURL(region.id), JSON.stringify(region), {headers: headers})
+            .toPromise()
+            .then(response => response.json())
+    }
+
+    save(region:Region) {
+        let headers = new Headers({'Content-Type': 'application/json'});
+        return this.http.post(this.conf.regionsURL(), JSON.stringify(region), {headers: headers})
             .toPromise()
             .then(response => response.json())
     }
@@ -28,12 +41,12 @@ export class Region {
     id:string;
     name:string;
     description:string;
-    zone:Zone;
-    promotions:string[]
+    zone:Zone = new Zone();
+    promotions:string[] = [];
 }
 
 export class Zone {
-    center:ZoneCenter;
+    center:ZoneCenter = new ZoneCenter();
     radius:number;
 }
 

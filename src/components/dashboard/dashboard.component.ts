@@ -1,4 +1,4 @@
-import {Component, OnInit} from 'angular2/core';
+import {Component, OnInit} from '@angular/core';
 import {RegionsService, Region} from '../../shared/services/src/regions.service'
 import {PromotionsService, Promotion} from "../../shared/services/src/promotions.service";
 import {CollapseDirective} from "../../shared/directives/src/collapse.directive";
@@ -7,17 +7,18 @@ import {CollapseDirective} from "../../shared/directives/src/collapse.directive"
     selector: 'dashboard',
     moduleId: module.id,
     templateUrl: './dashboard.component.html',
-    styleUrls : ['./dashboard.component.css'],
+    styleUrls: ['./dashboard.component.css'],
     directives: [CollapseDirective]
 })
 export class DashboardComponent implements OnInit {
-    regions:Region[];
-    selectedRegion:Region;
-    selectedPromotions:Promotion[];
-    error:Error;
+    regions: Region[];
+    selectedPromotions: Promotion[];
 
+    private selectedRegion: Region;
+    private error: Error;
 
-    constructor(private regionsService:RegionsService, private promotionsService:PromotionsService) {
+    constructor(private regionsService: RegionsService,
+                private promotionsService: PromotionsService) {
     }
 
     ngOnInit() {
@@ -31,7 +32,7 @@ export class DashboardComponent implements OnInit {
             .catch(error => this.error = error);
     }
 
-    selectRegion(r:Region) {
+    selectRegion(r: Region) {
         this.selectedRegion = r;
         this.promotionsService
             .getPromotionsOf(r.id)

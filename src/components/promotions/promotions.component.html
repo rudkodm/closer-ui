@@ -1,1 +1,114 @@
-<h1> Hey, I'm PromotionsComponent !</h1>
+<div class="card" id="promotion-search">
+    <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search for Promotion with ID ...">
+        <span class="input-group-btn">
+        <button class="btn btn-secondary" type="button">Find</button>
+        </span>
+    </div>
+</div>
+<div class="card" id="promotion-form">
+    <div class="card-header">
+        Promotion
+    </div>
+    <div class="card-block">
+        <form>
+            <div class="form-group row">
+                <label for="promotionRegionId" class="col-sm-2 form-control-label">Region ID</label>
+                <div class="col-sm-10">
+                    <input type="text"
+                           class="form-control"
+                           id="promotionRegionId"
+                           name="promotionRegionId"
+                           placeholder="Promotion Region ID">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="promotionServiceId" class="col-sm-2 form-control-label">Service ID</label>
+                <div class="col-sm-10">
+                    <input type="text"
+                           class="form-control"
+                           id="promotionServiceId"
+                           name="promotionServiceId"
+                           placeholder="Promotion Service ID">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="promotionPromoCode" class="col-sm-2 form-control-label">Promo Code</label>
+                <div class="col-sm-10">
+                    <input type="text"
+                           class="form-control"
+                           id="promotionPromoCode"
+                           name="promotionPromoCode"
+                           placeholder="Promo Code">
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <label for="promotionMedia" class="col-sm-2 form-control-label">Media Link</label>
+                <div class="col-sm-10">
+                    <input type="text"
+                           class="form-control"
+                           id="promotionMedia"
+                           name="promotionMedia"
+                           placeholder="Media Link">
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <label for="promotionTitle" class="col-sm-2 form-control-label">Title</label>
+                <div class="col-sm-10">
+                    <input type="text"
+                           class="form-control"
+                           id="promotionTitle"
+                           name="promotionTitle"
+                           placeholder="Title">
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <label for="promotionExpirationDateTime" class="col-sm-2 form-control-label">Expiration
+                    DateTime</label>
+                <div class="col-sm-10">
+                    <input type="text"
+                           class="form-control"
+                           id="promotionExpirationDateTime"
+                           name="promotionExpirationDateTime"
+                           placeholder="Expiration DateTime" 
+                           datetime-picker close-on-select="false" [(ngModel)]="testDate">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="promotionShortDescription" class="col-sm-2 form-control-label">Short Description</label>
+                <div class="col-sm-10">
+                    <input type="text"
+                           class="form-control"
+                           id="promotionShortDescription"
+                           name="promotionShortDescription"
+                           placeholder="Promotion Short Description">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="promotionFullDescription" class="col-sm-2 form-control-label">Full Description</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control"
+                              id="promotionFullDescription"
+                              name="promotionFullDescription"
+                              rows="3"
+                              placeholder="Promotion Full Description"></textarea>
+                </div>
+            </div>
+
+        </form>
+    </div>
+    <div class="card-footer text-muted">
+        <button class="btn btn-secondary-outline btn-sm" type="button">Clear</button>
+        <button class="btn btn-secondary-outline btn-sm" type="button">Submit</button>
+    </div>
+</div>

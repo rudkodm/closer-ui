@@ -1,13 +1,13 @@
-/**
- * Component PromotionsComponent
- */
-
-import {Component} from 'angular2/core';
+import {Component} from '@angular/core';
+import {DateTimePickerDirective} from "ng2-datetime-picker";
 
 @Component({
     selector: 'selectedPromotions',
     moduleId: module.id,
-    templateUrl: './selectedPromotions.component.html',
-    styleUrls : ['./selectedPromotions.component.css']
+    templateUrl: './promotions.component.html',
+    styleUrls : ['./promotions.component.css'],
+    directives: [DateTimePickerDirective]
 })
-export class PromotionsComponent { }
+export class PromotionsComponent {
+    testDate: Date = new Date()
+}

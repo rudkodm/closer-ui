@@ -1,4 +1,4 @@
-import {Injectable} from 'angular2/core';
+import {Injectable} from '@angular/core';
 
 @Injectable()
 export class AppConfiguration {
@@ -13,6 +13,10 @@ export class AppConfiguration {
     regionsURL = () => {
         return this.url('api/regions')
     };
+
+    regionByIdURL = (regionID: string) => {
+        return this.url(`api/regions/${regionID}`);
+    }
 
     promoOfRegionURL = (regionID: string) => {
         return this.url(`api/regions/${regionID}/promotions`);

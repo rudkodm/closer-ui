@@ -8,17 +8,28 @@
     "start": "gulp serve"
   },
   "dependencies": {
-    "angular2": "2.0.0-beta.13",
+    "@angular/common": "2.0.0-rc.4",
+    "@angular/compiler": "2.0.0-rc.4",
+    "@angular/core": "2.0.0-rc.4",
+    "@angular/forms": "0.2.0",
+    "@angular/http": "2.0.0-rc.4",
+    "@angular/platform-browser": "2.0.0-rc.4",
+    "@angular/platform-browser-dynamic": "2.0.0-rc.4",
+    "@angular/router": "3.0.0-beta.2",
+    "@angular/router-deprecated": "2.0.0-rc.2",
+    "@angular/upgrade": "2.0.0-rc.4",
     "bootstrap": "^4.0.0-alpha.2",
+    "core-js": "^2.4.0",
     "es6-promise": "^3.0.2",
     "es6-shim": "^0.35.0",
     "font-awesome": "^4.5.0",
     "gulp-install": "^0.6.0",
     "gulp-sass": "^2.3.1",
-    "reflect-metadata": "0.1.2",
-    "rxjs": "5.0.0-beta.2",
-    "systemjs": "0.19.25",
-    "zone.js": "0.6.6"
+    "ng2-datetime-picker": "^0.5.4",
+    "reflect-metadata": "0.1.4",
+    "rxjs": "5.0.0-beta.6",
+    "systemjs": "0.19.27",
+    "zone.js": "^0.6.12"
   },
   "devDependencies": {
     "browser-sync": "^2.11.1",

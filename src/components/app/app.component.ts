@@ -1,12 +1,8 @@
-import {Component} from 'angular2/core';
-import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
+import {Component} from '@angular/core';
+import {ROUTER_DIRECTIVES} from '@angular/router';
 import {HeaderComponent} from '../header/header.component';
 import {RegionsService} from "../../shared/services/src/regions.service";
 import {PromotionsService} from "../../shared/services/src/promotions.service";
-
-import {DashboardComponent} from "../dashboard/dashboard.component";
-import {RegionsComponent} from '../regions/regions.component';
-import {PromotionsComponent} from "../promotions/promotions.component";
 
 @Component({
     selector: 'app',
@@ -22,10 +18,5 @@ import {PromotionsComponent} from "../promotions/promotions.component";
         PromotionsService
     ]
 })
-@RouteConfig([
-    {path: '/', name: 'Dashboard', component: DashboardComponent, useAsDefault: true},
-    {path: '/regions', name: 'Regions', component: RegionsComponent},
-    {path: '/selectedPromotions', name: 'Promotions', component: PromotionsComponent}
-])
 export class AppComponent {
 }

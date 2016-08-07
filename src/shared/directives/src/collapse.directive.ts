@@ -1,14 +1,11 @@
-/**
- * Directive CollapseDirective
- */
-import {Directive, ElementRef, HostListener, Input} from 'angular2/core';
+import {Directive, ElementRef, HostListener, Input} from '@angular/core';
 @Directive({
     selector: '[collapsible]'
 })
 export class CollapseDirective {
 
-    private collapsed = false;
     private el:HTMLElement;
+    collapsed = false;
 
     constructor(el:ElementRef) {
         this.el = el.nativeElement;
@@ -18,8 +15,8 @@ export class CollapseDirective {
         (this.collapsed) ? this.show() : this.hide();
     }
 
-    @Input("collapsedByDefault") set collapsedByDefault(shouldBeCollapsed: boolean) {
-        if(shouldBeCollapsed) this.hide()
+    @Input() set collapsedByDefault(collapsedByDefault: boolean) {
+        if(collapsedByDefault) this.hide()
     }
 
     private hide() {
