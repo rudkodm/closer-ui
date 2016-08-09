@@ -31,6 +31,8 @@ export class AppConfiguration {
         switch (this.env) {
             case'localhost':
                 return 'http://localhost:9000/';
+            case'young-hollows-98001.herokuapp.com':
+                return 'https://dry-bastion-13599.herokuapp.com/';
             default:
                 return 'http://localhost:9000/';
         }

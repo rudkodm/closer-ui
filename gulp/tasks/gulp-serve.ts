@@ -2,6 +2,7 @@ import * as gulp from 'gulp';
 import {DEV_PATH, PROD_PATH} from '../gulp.conf';
 import * as historyApiFallback from 'connect-history-api-fallback';
 import {getBrowserSync} from '../browsersync';
+import * as gutil from 'gulp-util'
 
 let bs = getBrowserSync();
 
@@ -19,7 +20,8 @@ function init(destinationDirectory) {
             }
         },
         injectChanges: true,
-        middleware: [historyApiFallback()]
+        middleware: [historyApiFallback()],
+        port: process.env.PORT || 3000
     });
 }
 
