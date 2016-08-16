@@ -1,18 +1,37 @@
-<div class="card" id="region-search">
-    <div class="input-group">
-        <input type="text" class="form-control" placeholder="Search for Region with ID ..." #regionId name="regionId" >
-        <span class="input-group-btn">
-        <button class="btn btn-secondary" type="button" (click)="findRegionWithId(regionId)">Find</button>
-        </span>
+<div class="card" id="regions">
+    <div class="card-block">
+        <table class="table table-hover">
+            <thead class="thead">
+            <tr>
+                <th>Region</th>
+                <th>Latitude</th>
+                <th>Longitude</th>
+                <th>Radius</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr *ngFor="let r of regions" (click)="edit(r)">
+                <td>{{r.name}}</td>
+                <td>{{r.zone?.center?.latitude}}</td>
+                <td>{{r.zone?.center?.longitude}}</td>
+                <td>{{r.zone?.radius}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="card-footer text-muted">
+            <button type="button" class="btn btn-primary" (click)="regionModal.open('lg')">Add</button>
+        </div>
     </div>
 </div>
-<div class="card" id="region-form">
-    <div class="card-header">
-        Region<span *ngIf="region">: {{region.id}}</span>
-    </div>
-    <div class="card-block">
-        <form>
 
+<!-- Modal -->
+<modal #regionModal (onDismiss)="onDismiss($event)" (onClose)="onClose($event)">
+    <modal-header [show-close]="true">
+        <h4 class="modal-title">Region Form</h4>
+    </modal-header>
+    <modal-body>
+        <form>
             <div class="form-group row">
                 <label for="regionName" class="col-sm-2 form-control-label">Name</label>
                 <div class="col-sm-10">
@@ -42,27 +61,8 @@
                     <input type="number" class="form-control" placeholder="Radius" [(ngModel)]="region.zone.radius" name="regionZoneRadius">
                 </div>
             </div>
-
-
-            <div class="form-group row">
-                <label class="col-sm-2">Promotions</label>
-                <div class="col-sm-10">
-                    <select multiple="" class="form-control" id="regionPromotions" name="regionPromotions">
-                        <option *ngFor="let promoId of region.promotions">{{promoId}}</option>
-                    </select>
-                    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-secondary">Select</button>
-                        <button type="button" class="btn btn-secondary">Add</button>
-                        <button type="button" class="btn btn-secondary">Delete</button>
-                    </div>
-                </div>
-            </div>
-
-
         </form>
-    </div>
-    <div class="card-footer text-muted">
-        <button class="btn btn-secondary-outline btn-sm" type="button" (click)="clear()">Clear</button>
-        <button class="btn btn-secondary-outline btn-sm" type="button" (click)="submit()">Submit</button>
-    </div>
-</div>
+    </modal-body>
+    <modal-footer [show-default-buttons]="true"></modal-footer>
+</modal>
+

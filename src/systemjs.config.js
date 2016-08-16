@@ -5,7 +5,8 @@
         '@angular':                   'node_modules/@angular',
         'rxjs':                       'node_modules/rxjs',
         'typescript':                 'node_modules/typescript/lib/typescript.js',
-        'ng2-datetime-picker':        'node_modules/ng2-datetime-picker'
+        'ng2-datetime-picker':        'node_modules/ng2-datetime-picker',
+        'ng2-bs4-modal':              'node_modules/ng2-bs4-modal'
     };
 
     var packages = {
