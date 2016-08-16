@@ -2,41 +2,40 @@ import * as gulp from 'gulp';
 import {DEV_PATH, PROD_PATH} from '../gulp.conf';
 import * as historyApiFallback from 'connect-history-api-fallback';
 import {getBrowserSync} from '../browsersync';
-import * as gutil from 'gulp-util'
 
 let bs = getBrowserSync();
 
 /**
- * This function initiates the server.
- *
- * @param {String} destinationDirectory - The destination directory.
+ * This function initialises the server in development mode.
  */
-function init(destinationDirectory) {
+function serverDev() {
     bs.init({
         server: {
-            baseDir: destinationDirectory + '/',
+            baseDir: DEV_PATH + '/',
             routes: {
                 "/node_modules": "node_modules"
             }
         },
         injectChanges: true,
         middleware: [historyApiFallback()],
-        port: process.env.PORT || 3000
     });
-}
-
-/**
- * This function initialises the server in development mode.
- */
-function serverDev() {
-    init(DEV_PATH);
 }
 
 /**
  * This function initialises the server in production mode.
  */
 function serverProd() {
-    init(PROD_PATH);
+    bs.init({
+        server: {
+            baseDir: PROD_PATH + '/',
+            routes: {
+                "/node_modules": "node_modules"
+            }
+        },
+        ghostMode: false,
+        ui: false,
+        port: process.env.PORT || 3000
+    });
 }
 
 ///////////////////// Copy Tasks /////////////////////
