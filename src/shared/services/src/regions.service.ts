@@ -21,16 +21,22 @@ export class RegionsService {
     }
 
 
-    update(region:Region) {
+    update(region:Region): Promise<Region> {
         let headers = new Headers({'Content-Type': 'application/json'});
         return this.http.put(this.conf.regionByIdURL(region.id), JSON.stringify(region), {headers: headers})
             .toPromise()
             .then(response => response.json())
     }
 
-    save(region:Region) {
+    save(region:Region): Promise<Region> {
         let headers = new Headers({'Content-Type': 'application/json'});
         return this.http.post(this.conf.regionsURL(), JSON.stringify(region), {headers: headers})
+            .toPromise()
+            .then(response => response.json())
+    }
+
+    delete(region: Region) {
+        return this.http.delete(this.conf.regionByIdURL(region.id))
             .toPromise()
             .then(response => response.json())
     }
@@ -42,7 +48,6 @@ export class Region {
     name:string;
     description:string;
     zone:Zone = new Zone();
-    promotions:string[] = [];
 }
 
 export class Zone {

@@ -11,7 +11,7 @@
             </thead>
 
             <tbody>
-            <tr *ngFor="let r of regions" (click)="edit(r)">
+            <tr *ngFor="let r of regions" (click)="doEdit(r)">
                 <td>{{r.name}}</td>
                 <td>{{r.zone?.center?.latitude}}</td>
                 <td>{{r.zone?.center?.longitude}}</td>
@@ -20,13 +20,13 @@
             </tbody>
         </table>
         <div class="card-footer text-muted">
-            <button type="button" class="btn btn-primary" (click)="regionModal.open('lg')">Add</button>
+            <button type="button" class="btn btn-primary" (click)="doAdd()">Add</button>
         </div>
     </div>
 </div>
 
 <!-- Modal -->
-<modal #regionModal (onDismiss)="onDismiss($event)" (onClose)="onClose($event)">
+<modal #regionModal (onDismiss)="onDismiss($event)">
     <modal-header [show-close]="true">
         <h4 class="modal-title">Region Form</h4>
     </modal-header>
@@ -63,6 +63,10 @@
             </div>
         </form>
     </modal-body>
-    <modal-footer [show-default-buttons]="true"></modal-footer>
+    <modal-footer>
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="doSave()">Save</button>
+        <button *ngIf="!isAddNewOpt" type="button" class="btn btn-danger" (click)="doDelete()">Delete</button>
+    </modal-footer>
 </modal>
 
