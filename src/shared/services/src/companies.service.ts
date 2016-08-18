@@ -1,43 +1,43 @@
 import {Injectable} from '@angular/core';
 import {Http, Headers} from '@angular/http';
-import {Region} from '../../model'
 
 import 'rxjs/add/operator/toPromise';
 import {AppConfiguration} from "../../../config";
+import {Company} from "../../model";
 
 @Injectable()
 export class RegionsService {
     constructor(private http:Http, private conf:AppConfiguration) {
     }
-    getRegions():Promise<Region[]> {
-        return this.http.get(this.conf.regionsURL())
+    getCompanies():Promise<Company[]> {
+        return this.http.get(this.conf.companiesURL())
             .toPromise()
             .then(response => response.json());
     }
 
-    getRegionById(id:string):Promise<Region> {
-        return this.http.get(this.conf.regionByIdURL(id))
+    getCompanyById(id:string):Promise<Company> {
+        return this.http.get(this.conf.companyByIdURL(id))
             .toPromise()
             .then(response => response.json())
     }
 
 
-    update(region:Region): Promise<Region> {
+    update(company:Company): Promise<Company> {
         let headers = new Headers({'Content-Type': 'application/json'});
-        return this.http.put(this.conf.regionByIdURL(region.id), JSON.stringify(region), {headers: headers})
+        return this.http.put(this.conf.companyByIdURL(company.id), JSON.stringify(company), {headers: headers})
             .toPromise()
             .then(response => response.json())
     }
 
-    save(region:Region): Promise<Region> {
+    save(company:Company): Promise<Company> {
         let headers = new Headers({'Content-Type': 'application/json'});
-        return this.http.post(this.conf.regionsURL(), JSON.stringify(region), {headers: headers})
+        return this.http.post(this.conf.companiesURL(), JSON.stringify(company), {headers: headers})
             .toPromise()
             .then(response => response.json())
     }
 
-    delete(region: Region) {
-        return this.http.delete(this.conf.regionByIdURL(region.id))
+    delete(company: Company) {
+        return this.http.delete(this.conf.companyByIdURL(company.id))
             .toPromise()
             .then(response => response.json())
     }

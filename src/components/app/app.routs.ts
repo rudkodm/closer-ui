@@ -1,15 +1,13 @@
-import {provideRouter, RouterConfig} from '@angular/router';
-
-import {DashboardComponent} from "../dashboard/dashboard.component";
-import {RegionsComponent} from '../regions/regions.component';
+import {provideRouter, RouterConfig} from "@angular/router";
+import {RegionsComponent} from "../regions/regions.component";
 import {PromotionsComponent} from "../promotions/promotions.component";
-
+import {CompaniesComponent} from "../companies/companies.component";
 
 
 const routes: RouterConfig = [
-    {path: '', redirectTo: '/dashboard', pathMatch: 'full' },
-    {path: 'dashboard', component: DashboardComponent},
+    {path: '', redirectTo: '/regions', pathMatch: 'full' },
     {path: 'regions', component: RegionsComponent},
+    {path: 'companies', component: CompaniesComponent},
     {path: 'promotions', component: PromotionsComponent}
 ];
 

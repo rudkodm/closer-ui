@@ -18,6 +18,14 @@ export class AppConfiguration {
         return this.url(`api/regions/${regionID}`);
     }
 
+    companiesURL = () => {
+        return this.url('api/companies')
+    };
+
+    companyByIdURL = (regionID: string) => {
+        return this.url(`api/companies/${regionID}`);
+    }
+
     promoOfRegionURL = (regionID: string) => {
         return this.url(`api/regions/${regionID}/promotions`);
     }

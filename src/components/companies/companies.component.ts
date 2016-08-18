@@ -1,23 +1,23 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {RegionsService} from '../../shared/services/src/regions.service'
+import {Region} from '../../shared/model'
 import {MODAL_DIRECTIVES, ModalComponent} from 'ng2-bs4-modal/ng2-bs4-modal'
 import * as _ from 'lodash'
-import {Region} from "../../shared/model";
 
 @Component({
-    selector: 'regions',
+    selector: 'companies',
     moduleId: module.id,
-    templateUrl: './regions.component.html',
-    styleUrls: ['./regions.component.css'],
+    templateUrl: './companies.component.html',
+    styleUrls : ['./companies.component.css'],
     directives: [MODAL_DIRECTIVES]
 })
-export class RegionsComponent implements OnInit {
+export class CompaniesComponent implements OnInit{
     regions: Region[];
     region: Region = new Region();
     error: Error;
     isAddNewOpt: Boolean = false;
 
-    @ViewChild('regionModal')
+    @ViewChild('companyModal')
     modal: ModalComponent;
     modalSize = 'lg';
 
@@ -102,4 +102,6 @@ export class RegionsComponent implements OnInit {
     private findRegionPosition(region: Region) {
         return this.regions.findIndex(r => r.id === region.id);
     }
+
+
 }
