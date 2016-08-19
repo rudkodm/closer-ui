@@ -17,7 +17,7 @@ export class RegionsComponent implements OnInit {
     error: Error;
     isAddNewOpt: Boolean = false;
 
-    @ViewChild('regionModal')
+    @ViewChild('modal')
     modal: ModalComponent;
     modalSize = 'lg';
 

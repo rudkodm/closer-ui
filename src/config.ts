@@ -16,7 +16,7 @@ export class AppConfiguration {
 
     regionByIdURL = (regionID: string) => {
         return this.url(`api/regions/${regionID}`);
-    }
+    };
 
     companiesURL = () => {
         return this.url('api/companies')
@@ -24,10 +24,22 @@ export class AppConfiguration {
 
     companyByIdURL = (regionID: string) => {
         return this.url(`api/companies/${regionID}`);
-    }
+    };
+
+    providersURL = () => {
+        return this.url('api/providers')
+    };
+
+    providerByIdURL = (regionID: string) => {
+        return this.url(`api/providers/${regionID}`);
+    };
 
     promoOfRegionURL = (regionID: string) => {
         return this.url(`api/regions/${regionID}/promotions`);
+    };
+
+    geoApiURL = (address: string) => {
+        return `https://maps.googleapis.com/maps/api/geocode/json?&address=${address}`;
     }
 
 

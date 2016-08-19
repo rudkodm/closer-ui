@@ -1,8 +1,8 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {RegionsService} from '../../shared/services/src/regions.service'
-import {Region} from '../../shared/model'
-import {MODAL_DIRECTIVES, ModalComponent} from 'ng2-bs4-modal/ng2-bs4-modal'
-import * as _ from 'lodash'
+import {Component, OnInit, ViewChild} from "@angular/core";
+import {CompaniesService} from "../../shared/services/src/companies.service";
+import {Company, AddressDetails, ContactDetails, ServiceProvider} from "../../shared/model";
+import {MODAL_DIRECTIVES, ModalComponent} from "ng2-bs4-modal/ng2-bs4-modal";
+import * as _ from "lodash";
 
 @Component({
     selector: 'companies',
@@ -12,8 +12,9 @@ import * as _ from 'lodash'
     directives: [MODAL_DIRECTIVES]
 })
 export class CompaniesComponent implements OnInit{
-    regions: Region[];
-    region: Region = new Region();
+    companies: Company[];
+    services: ServiceProvider[];
+    company: Company = new Company();
     error: Error;
     isAddNewOpt: Boolean = false;
 
@@ -21,87 +22,103 @@ export class CompaniesComponent implements OnInit{
     modal: ModalComponent;
     modalSize = 'lg';
 
-    constructor(private regionsService: RegionsService) {
+    constructor(private companiesService: CompaniesService) {
+    }
+
+    companyOf(service: ServiceProvider) {
+        function contains(c : Company, s: ServiceProvider) {
+            return c.services.find(it => it.id === s.id) != null
+        }
+        return this.companies.find(c => contains(c, service))
     }
 
     ngOnInit() {
-        this.getRegions()
-    }
-
-    private getRegions() {
-        this.regionsService
-            .getRegions()
-            .then(regions => this.regions = regions)
+        this.companiesService
+            .getCompanies()
+            .then(companies => {
+                this.companies = companies
+                this.services = _.flatMap(companies, (c) => c.services)
+            })
             .catch(error => this.error = error);
     }
 
-    doSave() {
-        function saveOpt() {
-            this.regionsService
-                .save(this.region)
-                .then(region => this.regions.push(region))
-                .catch(error => this.error = error)
-        }
-
-        function updateOpt() {
-            this.regionsService
-                .update(this.region)
-                .then(region => {
-                    this.replaceWith(this.regions, region);
-                })
-                .catch(error => this.error = error)
-        }
-
-        if (this.isAddNewOpt) {
-            saveOpt.call(this);
-        } else {
-            updateOpt.call(this);
-        }
-        this.clear()
-        this.modal.close()
-    }
-
-    private replaceWith(regions: Region[], region: Region) {
-        let index = this.findRegionPosition(region)
-        regions.splice(index, 1, region)
-    }
-
-    doEdit(region: Region) {
-        this.region = _.cloneDeep(region)
+    // doSave() {
+    //     function saveOpt() {
+    //         this.regionsService
+    //             .save(this.region)
+    //             .then(region => this.regions.push(region))
+    //             .catch(error => this.error = error)
+    //     }
+    //
+    //     function updateOpt() {
+    //         this.regionsService
+    //             .update(this.region)
+    //             .then(region => {
+    //                 this.replaceWith(this.regions, region);
+    //             })
+    //             .catch(error => this.error = error)
+    //     }
+    //
+    //     if (this.isAddNewOpt) {
+    //         saveOpt.call(this);
+    //     } else {
+    //         updateOpt.call(this);
+    //     }
+    //     this.clear()
+    //     this.modal.close()
+    // }
+    //
+    // private replaceWith(regions: Region[], region: Region) {
+    //     let index = this.findPosition(region)
+    //     regions.splice(index, 1, region)
+    // }
+    //
+    doEdit(company: Company) {
+        this.company = _.cloneDeep(company)
         this.modal.open(this.modalSize)
     }
-
+    //
     doAdd() {
         this.isAddNewOpt = true
         this.modal.open(this.modalSize)
     }
-
-    doDelete() {
-        this.regionsService
-            .delete(this.region)
-            .catch(error  => this.error = error)
-
-        this.removeRegion(this.regions, this.region)
-        this.modal.close()
-    }
-
-    private removeRegion(regions: Region[], region: Region) {
-        let index = this.findRegionPosition(region)
-        regions.splice(index, 1)
-    }
-
+    //
+    // doDelete() {
+    //     this.regionsService
+    //         .delete(this.region)
+    //         .catch(error  => this.error = error)
+    //
+    //     this.removeRegion(this.regions, this.region)
+    //     this.modal.close()
+    // }
+    //
+    // private removeRegion(regions: Region[], region: Region) {
+    //     let index = this.findPosition(region)
+    //     regions.splice(index, 1)
+    // }
+    //
     onDismiss(event) {
         this.clear()
     }
-
+    //
     private clear() {
         this.isAddNewOpt = false
-        this.region = new Region()
+        this.company = new Company()
     }
+    //
+    // private findPosition(region: Region) {
+    //     return this.regions.findIndex(r => r.id === region.id);
+    // }
+}
 
-    private findRegionPosition(region: Region) {
-        return this.regions.findIndex(r => r.id === region.id);
-    }
-
-
+export class ServicesDetails {
+    companyId: string;
+    companyName: string;
+    companyDescription: string;
+    companyContactDetails: ContactDetails;
+    serviceId: string;
+    regionId: string;
+    businessCategory: string;
+    addressDetails: AddressDetails;
+    contactDetails: ContactDetails;
 }

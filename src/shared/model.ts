@@ -6,11 +6,11 @@ export class Region {
 }
 
 export class Zone {
-    center:ZoneCenter = new ZoneCenter();
+    center:Location = new Location();
     radius:number;
 }
 
-export class ZoneCenter {
+export class Location {
     latitude:number;
     longitude:number;
 }
@@ -31,6 +31,7 @@ export class Company {
     name: string;
     description: string;
     contactDetails: ContactDetails;
+    services: ServiceProvider[];
 }
 
 export class ContactDetails {
@@ -44,13 +45,20 @@ export class AddressDetails {
     country: string;
     city: string;
     address: string;
-    location: Location
+    location: Location = new Location()
 }
 
-export class Service {
+export class ServiceProvider {
     id: string;
     regionId: string;
+    name: string;
     businessCategory: string;
-    addressDetails: AddressDetails;
-    contactDetails: ContactDetails;
+    registerDetails: PersonDetails = new PersonDetails();
+    addressDetails: AddressDetails = new AddressDetails();
+    contactDetails: ContactDetails = new ContactDetails();
+}
+
+export class PersonDetails {
+    name: string;
+    surname: string;
 }

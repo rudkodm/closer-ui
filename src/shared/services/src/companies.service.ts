@@ -6,7 +6,7 @@ import {AppConfiguration} from "../../../config";
 import {Company} from "../../model";
 
 @Injectable()
-export class RegionsService {
+export class CompaniesService {
     constructor(private http:Http, private conf:AppConfiguration) {
     }
     getCompanies():Promise<Company[]> {

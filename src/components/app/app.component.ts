@@ -3,6 +3,9 @@ import {ROUTER_DIRECTIVES} from '@angular/router';
 import {HeaderComponent} from '../header/header.component';
 import {RegionsService} from "../../shared/services/src/regions.service";
 import {PromotionsService} from "../../shared/services/src/promotions.service";
+import {CompaniesService} from "../../shared/services/src/companies.service";
+import {ProvidersService} from "../../shared/services/src/providers.service";
+import {LocationService} from "../../shared/services/src/location.service";
 
 @Component({
     selector: 'app',
@@ -15,7 +18,10 @@ import {PromotionsService} from "../../shared/services/src/promotions.service";
     ],
     providers: [
         RegionsService,
-        PromotionsService
+        PromotionsService,
+        CompaniesService,
+        ProvidersService,
+        LocationService
     ]
 })
 export class AppComponent {
