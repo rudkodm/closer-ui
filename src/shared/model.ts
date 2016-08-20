@@ -24,6 +24,11 @@ export class Promotion {
     expirationDateTime:Date;
     shortDescription:string;
     fullDescription:string;
+    rule: Rule = new Rule();
+}
+
+export class Rule {
+    description: string;
 }
 
 export class Company {

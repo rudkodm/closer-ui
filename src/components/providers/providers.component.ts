@@ -5,12 +5,15 @@ import * as _ from "lodash";
 import {ProvidersService} from "../../shared/services/src/providers.service";
 import {RegionsService} from "../../shared/services/src/regions.service";
 import {LocationService} from "../../shared/services/src/location.service";
+import {Observable} from "rxjs/Rx";
+import 'rxjs/add/operator/merge';
+import 'rxjs/add/operator/mergeMap';
 
 @Component({
     selector: 'providers',
     moduleId: module.id,
     templateUrl: './providers.component.html',
-    styleUrls: ['./providers.component.css'],
+    styleUrls: ['./providers.component.scss'],
     directives: [MODAL_DIRECTIVES]
 })
 export class ProvidersComponent implements OnInit {
@@ -30,14 +33,21 @@ export class ProvidersComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.regionsService.getRegions()
-            .then(regions => {
-                this.regions = regions
-                this.providerService.getProviders()
-                    .then(services => this.services = services)
-                    .catch(error => this.error = error);
-            })
-            .catch(error => this.error = error);
+        let observables = [
+            this.providerService.getProviders(),
+            this.regionsService.getRegions()
+        ];
+        Observable
+            .forkJoin(observables)
+            .subscribe(
+                data => {
+                    this.services = data[0];
+                    this.regions = data[1];
+                },
+                errors => {
+                    this.error = errors[0]
+                }
+            );
     }
 
     regionInformationOf(id: string): Region {
@@ -45,27 +55,30 @@ export class ProvidersComponent implements OnInit {
     }
 
     doSave() {
-        let service = this.service;
         if (this.isAddNewOpt) {
-            this.locationService
-                .getLocationOf(service.addressDetails.address)
-                .then(location => {
-                    service.addressDetails.location = location;
-                    this.providerService
-                        .save(service)
-                        .then(service => this.services.push(service))
-                        .catch(error => this.error = error)
-                });
+            this.saveOpt(this.service)
         } else {
-            this.providerService
-                .update(service)
-                .then(service => {
-                    this.replaceWith(this.services, service);
-                })
-                .catch(error => this.error = error)
+            this.updateOpt(this.service)
         }
         this.clear();
         this.modal.close()
+    }
+
+    private saveOpt(service: ServiceProvider) {
+        let address = service.addressDetails.address;
+        this.locationService.getLocationOf(address)
+            .then(location => {
+                service.addressDetails.location = location
+                this.providerService.save(service)
+                    .then(service => this.services.push(service))
+                    .catch( error => this.error = error)})
+    }
+
+    private updateOpt(service: ServiceProvider) {
+        this.providerService
+            .update(service)
+            .then(service => this.replaceWith(this.services, service))
+            .catch(error => this.error = error)
     }
 
     private replaceWith(services: ServiceProvider[], service: ServiceProvider) {
@@ -78,12 +91,10 @@ export class ProvidersComponent implements OnInit {
         this.modal.open(this.modalSize)
     }
 
-    //
     doAdd() {
         this.isAddNewOpt = true
         this.modal.open(this.modalSize)
     }
-
 
     doDelete() {
         this.providerService
@@ -103,7 +114,6 @@ export class ProvidersComponent implements OnInit {
         this.clear()
     }
 
-    //
     private clear() {
         this.isAddNewOpt = false
         this.service = new ServiceProvider()

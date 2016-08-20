@@ -30,12 +30,20 @@ export class AppConfiguration {
         return this.url('api/providers')
     };
 
-    providerByIdURL = (regionID: string) => {
-        return this.url(`api/providers/${regionID}`);
+    providerByIdURL = (id: string) => {
+        return this.url(`api/providers/${id}`);
     };
 
-    promoOfRegionURL = (regionID: string) => {
-        return this.url(`api/regions/${regionID}/promotions`);
+    promotionsOfRegionURL = (id: string) => {
+        return this.url(`api/regions/${id}/promotions`);
+    };
+
+    promotionsURL = () => {
+        return this.url('api/promotions')
+    };
+
+    promotionByIdURL = (id: string) => {
+        return this.url(`api/promotions/${id}`);
     };
 
     geoApiURL = (address: string) => {
