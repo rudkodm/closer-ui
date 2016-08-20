@@ -1,9 +1,6 @@
 @import "../../shared/styles/variables";
 
-.card {
-  @include nice-card(10px);
-}
-
 .form-group .btn-group {
   margin-top: 0.2rem;
 }
+

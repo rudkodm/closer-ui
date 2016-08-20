@@ -20,10 +20,9 @@ export const SHIMS_DEPENDENCIES: string[] = [
  */
 export const LIBS_DEPENDENCIES: string[] = [
     'node_modules/systemjs/dist/system.src.js',
-    'node_modules/rxjs/bundles/Rx.js',
-    'node_modules/angular2/bundles/angular2.dev.js',
-    'node_modules/angular2/bundles/http.dev.js',
-    'node_modules/angular2/bundles/router.dev.js'
+    'node_modules/jquery/dist/jquery.min.js',
+    'node_modules/tether/dist/js/tether.min.js',
+    'node_modules/bootstrap/dist/js/bootstrap.min.js'
 ];
 
 

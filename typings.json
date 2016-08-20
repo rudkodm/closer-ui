@@ -19,5 +19,9 @@
     "vinyl": "github:DefinitelyTyped/DefinitelyTyped/vinyl/vinyl.d.ts#5a8fc5ee71701431e4fdbb80c506e3c13f85a9ff",
     "chalk": "github:DefinitelyTyped/DefinitelyTyped/chalk/chalk.d.ts#5a8fc5ee71701431e4fdbb80c506e3c13f85a9ff",
     "through2": "github:DefinitelyTyped/DefinitelyTyped/through2/through2.d.ts#5a8fc5ee71701431e4fdbb80c506e3c13f85a9ff"
+  },
+  "globalDependencies": {},
+  "dependencies": {
+    "lodash": "registry:npm/lodash#4.0.0+20160723033700"
   }
 }

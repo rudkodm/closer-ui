@@ -32,6 +32,7 @@ function serverProd() {
                 "/node_modules": "node_modules"
             }
         },
+        middleware: [historyApiFallback()],
         ghostMode: false,
         ui: false,
         port: process.env.PORT || 3000

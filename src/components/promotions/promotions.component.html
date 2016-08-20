@@ -1,114 +1,159 @@
-<div class="card" id="promotion-search">
-    <div class="input-group">
-        <input type="text" class="form-control" placeholder="Search for Promotion with ID ...">
-        <span class="input-group-btn">
-        <button class="btn btn-secondary" type="button">Find</button>
-        </span>
+<div class="card" id="promotions">
+    <div class="card-block">
+        <table class="table table-hover">
+            <thead class="thead">
+            <tr>
+                <th>Service Provider</th>
+                <th>Region</th>
+                <th>Title</th>
+                <th>Short Description</th>
+                <th>Data / Time of Expiry</th>
+                <th>PromoCode</th>
+                <th>Rule</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr *ngFor="let p of promotions" (click)="doEdit(p)">
+                <td>{{ providerInformationOf(p.serviceId)?.name }}</td>
+                <td>{{ regionInformationOf(p.regionId)?.name }}</td>
+                <td>{{ p.title }}</td>
+                <td>{{ p.shortDescription }}</td>
+                <td>{{ p.expirationDateTime | date: 'medium' }}</td>
+                <td>{{ p.promoCode }}</td>
+                <td>{{ p.rule?.description }}</td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="card-footer text-muted">
+            <button type="button" class="btn btn-primary" (click)="doAdd()">Add</button>
+        </div>
     </div>
 </div>
-<div class="card" id="promotion-form">
-    <div class="card-header">
-        Promotion
-    </div>
-    <div class="card-block">
-        <form>
-            <div class="form-group row">
-                <label for="promotionRegionId" class="col-sm-2 form-control-label">Region ID</label>
-                <div class="col-sm-10">
-                    <input type="text"
-                           class="form-control"
-                           id="promotionRegionId"
-                           name="promotionRegionId"
-                           placeholder="Promotion Region ID">
+
+<!-- Modal -->
+<modal #modal (onDismiss)="onDismiss($event)">
+    <modal-header [show-close]="true">
+        <h4 class="modal-title">Promotion Form</h4>
+    </modal-header>
+    <div class="card" id="promotion-form">
+        <div class="card-block">
+            <form>
+
+                <div class="form-group row">
+                    <label for="serviceProvider" class="col-sm-2 form-control-label">Service Provider</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" id="serviceProvider" [(ngModel)]="promotion.serviceId"
+                                name="serviceProvider">
+                            <option *ngFor="let s of services" [value]="s.id">{{s.name}}</option>
+                        </select>
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group row">
-                <label for="promotionServiceId" class="col-sm-2 form-control-label">Service ID</label>
-                <div class="col-sm-10">
-                    <input type="text"
-                           class="form-control"
-                           id="promotionServiceId"
-                           name="promotionServiceId"
-                           placeholder="Promotion Service ID">
+                <div class="form-group row">
+                    <label for="regionOfPromotion" class="col-sm-2 form-control-label">Region</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" id="regionOfPromotion" [(ngModel)]="promotion.regionId"
+                                name="regionOfPromotion">
+                            <option *ngFor="let r of regions" [value]="r.id">{{r.name}}</option>
+                        </select>
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group row">
-                <label for="promotionPromoCode" class="col-sm-2 form-control-label">Promo Code</label>
-                <div class="col-sm-10">
-                    <input type="text"
-                           class="form-control"
-                           id="promotionPromoCode"
-                           name="promotionPromoCode"
-                           placeholder="Promo Code">
+                <div class="form-group row">
+                    <label for="promotionTitle" class="col-sm-2 form-control-label">Title</label>
+                    <div class="col-sm-10">
+                        <input type="text"
+                               class="form-control"
+                               id="promotionTitle"
+                               name="promotionTitle"
+                               placeholder="Title"
+                               [(ngModel)]="promotion.title">
+                    </div>
                 </div>
-            </div>
 
-
-            <div class="form-group row">
-                <label for="promotionMedia" class="col-sm-2 form-control-label">Media Link</label>
-                <div class="col-sm-10">
-                    <input type="text"
-                           class="form-control"
-                           id="promotionMedia"
-                           name="promotionMedia"
-                           placeholder="Media Link">
+                <div class="form-group row">
+                    <label for="promotionShortDescription" class="col-sm-2 form-control-label">Short Description</label>
+                    <div class="col-sm-10">
+                        <input type="text"
+                               class="form-control"
+                               id="promotionShortDescription"
+                               name="promotionShortDescription"
+                               placeholder="Promotion Short Description"
+                               [(ngModel)]="promotion.shortDescription">
+                    </div>
                 </div>
-            </div>
 
-
-            <div class="form-group row">
-                <label for="promotionTitle" class="col-sm-2 form-control-label">Title</label>
-                <div class="col-sm-10">
-                    <input type="text"
-                           class="form-control"
-                           id="promotionTitle"
-                           name="promotionTitle"
-                           placeholder="Title">
-                </div>
-            </div>
-
-
-            <div class="form-group row">
-                <label for="promotionExpirationDateTime" class="col-sm-2 form-control-label">Expiration
-                    DateTime</label>
-                <div class="col-sm-10">
-                    <input type="text"
-                           class="form-control"
-                           id="promotionExpirationDateTime"
-                           name="promotionExpirationDateTime"
-                           placeholder="Expiration DateTime" 
-                           datetime-picker close-on-select="false" [(ngModel)]="testDate">
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label for="promotionShortDescription" class="col-sm-2 form-control-label">Short Description</label>
-                <div class="col-sm-10">
-                    <input type="text"
-                           class="form-control"
-                           id="promotionShortDescription"
-                           name="promotionShortDescription"
-                           placeholder="Promotion Short Description">
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label for="promotionFullDescription" class="col-sm-2 form-control-label">Full Description</label>
-                <div class="col-sm-10">
+                <div class="form-group row">
+                    <label for="promotionFullDescription" class="col-sm-2 form-control-label">Full Description</label>
+                    <div class="col-sm-10">
                     <textarea class="form-control"
                               id="promotionFullDescription"
                               name="promotionFullDescription"
                               rows="3"
-                              placeholder="Promotion Full Description"></textarea>
+                              placeholder="Promotion Full Description"
+                              [(ngModel)]="promotion.fullDescription">
+                    </textarea>
+                    </div>
                 </div>
-            </div>
 
-        </form>
+                <div class="form-group row">
+                    <label for="promotionExpirationDateTime" class="col-sm-2 form-control-label">Expiration
+                        DateTime</label>
+                    <div class="col-sm-10">
+                        <input type="datetime"
+                               class="form-control"
+                               id="promotionExpirationDateTime"
+                               name="promotionExpirationDateTime"
+                               placeholder="Expiration DateTime"
+                               datetime-picker close-on-select="false"
+                               [(ngModel)]="promotion.expirationDateTime">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="promotionPromoCode" class="col-sm-2 form-control-label">Promo Code</label>
+                    <div class="col-sm-10">
+                        <input type="text"
+                               class="form-control"
+                               id="promotionPromoCode"
+                               name="promotionPromoCode"
+                               placeholder="Promo Code"
+                               [(ngModel)]="promotion.promoCode">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="promotionRule" class="col-sm-2 form-control-label">Promo Rule</label>
+                    <div class="col-sm-10">
+                        <input type="text"
+                               class="form-control"
+                               id="promotionRule"
+                               name="promotionRule"
+                               placeholder="Promo Code"
+                               [(ngModel)]="promotion.rule.description">
+                    </div>
+                </div>
+
+
+                <div class="form-group row">
+                    <label for="promotionMedia" class="col-sm-2 form-control-label">Media Link</label>
+                    <div class="col-sm-10">
+                        <input type="text"
+                               class="form-control"
+                               id="promotionMedia"
+                               name="promotionMedia"
+                               placeholder="Media Link"
+                               [(ngModel)]="promotion.media">
+                    </div>
+                </div>
+
+            </form>
+        </div>
     </div>
-    <div class="card-footer text-muted">
-        <button class="btn btn-secondary-outline btn-sm" type="button">Clear</button>
-        <button class="btn btn-secondary-outline btn-sm" type="button">Submit</button>
-    </div>
-</div>
+    <modal-footer>
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="doSave()">Save</button>
+        <button *ngIf="!isAddNewOpt" type="button" class="btn btn-danger" (click)="doDelete()">Delete</button>
+    </modal-footer>
+</modal>
