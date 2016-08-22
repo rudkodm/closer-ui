@@ -60,6 +60,7 @@ export class AppConfiguration {
             case'localhost':
                 return 'http://localhost:9000/';
             case'young-hollows-98001.herokuapp.com':
+            case'mysterious-chamber-98748.herokuapp.com':
                 return 'https://dry-bastion-13599.herokuapp.com/';
             default:
                 return 'http://localhost:9000/';

@@ -1,1 +1,1 @@
-web: npm run serve:prod
+web: gulp serve:prod
