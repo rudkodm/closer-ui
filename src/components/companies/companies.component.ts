@@ -7,8 +7,8 @@ import * as _ from "lodash";
 @Component({
     selector: 'companies',
     moduleId: module.id,
-    templateUrl: './companies.component.html',
-    styleUrls : ['./companies.component.css'],
+    templateUrl: '/components/companies/companies.component.html',
+    styleUrls : ['/components/companies/companies.component.css'],
     directives: [MODAL_DIRECTIVES]
 })
 export class CompaniesComponent implements OnInit{

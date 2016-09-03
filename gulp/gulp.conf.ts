@@ -19,12 +19,19 @@ export const SHIMS_DEPENDENCIES: string[] = [
  * @constant {string[]} Constant containing all path to libraries dependencies we want in the project.
  */
 export const LIBS_DEPENDENCIES: string[] = [
-    'node_modules/systemjs/dist/system.src.js',
     'node_modules/jquery/dist/jquery.min.js',
     'node_modules/tether/dist/js/tether.min.js',
     'node_modules/bootstrap/dist/js/bootstrap.min.js'
 ];
 
+export const BOOT_DEPENDENCIES: string[] = [
+    'systemjs.config.js',
+    'systemjs.boot.js'
+];
+
+export const SYSJS_DEPENDENCIES: string[] = [
+    'node_modules/systemjs/dist/system.src.js'
+];
 
 /**
  * @constant {string} The path of the development directory.
@@ -62,6 +69,21 @@ export const SPEC_FILES: string = 'src/**/*.spec.ts';
 export const INDEX: string = 'index.html';
 
 /**
+ * @constant {string} The name of the bundle file.
+ */
+export const BUNDLE: string = 'bundle.js';
+
+/**
+ * @constant {string} The name of the main script.
+ */
+export const MAIN: string = 'main.js';
+
+/**
+ * @constant {string} The name of the systemjs config script.
+ */
+export const SYSJS_CONFIG: string = 'systemjs.config.js';
+
+/**
  * @constant {string} The libs tag name.
  */
 export const LIBS: string = 'libs';
@@ -70,3 +92,8 @@ export const LIBS: string = 'libs';
  * @constant {string} The shimd tag name.
  */
 export const SHIMS: string = 'shims';
+
+/**
+ * @constant {string} The run scripts tag name.
+ */
+export const BOOT: string = 'boot';

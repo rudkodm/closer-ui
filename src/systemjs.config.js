@@ -47,5 +47,6 @@
 
     System.config(config);
 
-    System.import('main').catch(function(err){ console.error(err); });
+    if (global.filterSystemConfig) { global.filterSystemConfig(config); }
+
 })(this);

@@ -12,8 +12,8 @@ import 'rxjs/add/operator/mergeMap';
 @Component({
     selector: 'providers',
     moduleId: module.id,
-    templateUrl: './providers.component.html',
-    styleUrls: ['./providers.component.css'],
+    templateUrl: '/components/providers/providers.component.html',
+    styleUrls: ['/components/providers/providers.component.css'],
     directives: [MODAL_DIRECTIVES]
 })
 export class ProvidersComponent implements OnInit {

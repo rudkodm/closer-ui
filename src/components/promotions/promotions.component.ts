@@ -14,8 +14,8 @@ import 'rxjs/add/operator/mergeMap';
 @Component({
     selector: 'selectedPromotions',
     moduleId: module.id,
-    templateUrl: './promotions.component.html',
-    styleUrls: ['./promotions.component.css'],
+    templateUrl: '/components/promotions/promotions.component.html',
+    styleUrls: ['/components/promotions/promotions.component.css'],
     directives: [MODAL_DIRECTIVES, DateTimePickerDirective]
 })
 export class PromotionsComponent implements OnInit {
