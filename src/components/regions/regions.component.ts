@@ -7,8 +7,8 @@ import {Region} from "../../shared/model";
 @Component({
     selector: 'regions',
     moduleId: module.id,
-    templateUrl: './regions.component.html',
-    styleUrls: ['./regions.component.css'],
+    templateUrl: '/components/regions/regions.component.html',
+    styleUrls: ['/components/regions/regions.component.css'],
     directives: [MODAL_DIRECTIVES]
 })
 export class RegionsComponent implements OnInit {

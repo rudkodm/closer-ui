@@ -10,7 +10,7 @@ gulp.task('serve:dev', callback =>
 );
 
 gulp.task('serve:prod', callback =>
-    runSequence('build:prod', 'server:prod')
+    runSequence('build:prod','server:prod')
 );
 
 gulp.task('build:dev', callback =>
@@ -18,5 +18,5 @@ gulp.task('build:dev', callback =>
 );
 
 gulp.task('build:prod', callback =>
-    runSequence('clean:prod', ['copy:prod', 'ts:prod', 'sass:prod'], 'inject:prod', callback)
+    runSequence('clean:prod', ['copy:prod', 'ts:prod', 'sass:prod'], 'bundle', 'gzip', 'inject:prod', callback)
 );

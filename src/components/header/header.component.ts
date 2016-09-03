@@ -4,8 +4,8 @@ import {ROUTER_DIRECTIVES} from '@angular/router';
 @Component({
     selector: 'header',
     moduleId: module.id,
-    templateUrl: './header.component.html',
-    styleUrls: ['./header.component.css'],
+    templateUrl: '/components/header/header.component.html',
+    styleUrls: ['/components/header/header.component.css'],
     directives: [
         ROUTER_DIRECTIVES
     ]

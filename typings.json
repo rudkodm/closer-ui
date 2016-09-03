@@ -22,6 +22,7 @@
   },
   "globalDependencies": {},
   "dependencies": {
+    "gulp-sourcemaps": "registry:npm/gulp-sourcemaps#2.0.0-alpha+20160823215745",
     "lodash": "registry:npm/lodash#4.0.0+20160723033700"
   }
 }

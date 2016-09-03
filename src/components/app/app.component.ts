@@ -10,8 +10,8 @@ import {LocationService} from "../../shared/services/src/location.service";
 @Component({
     selector: 'app',
     moduleId: module.id,
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.css'],
+    templateUrl: '/components/app/app.component.html',
+    styleUrls: ['/components/app/app.component.css'],
     directives: [
         ROUTER_DIRECTIVES,
         HeaderComponent
