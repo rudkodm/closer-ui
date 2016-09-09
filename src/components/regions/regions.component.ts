@@ -1,15 +1,13 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {RegionsService} from '../../shared/services/src/regions.service'
-import {MODAL_DIRECTIVES, ModalComponent} from 'ng2-bs4-modal/ng2-bs4-modal'
+import {ModalComponent} from 'ng2-bs4-modal/ng2-bs4-modal'
 import * as _ from 'lodash'
 import {Region} from "../../shared/model";
 
 @Component({
     selector: 'regions',
-    moduleId: module.id,
     templateUrl: '/components/regions/regions.component.html',
-    styleUrls: ['/components/regions/regions.component.css'],
-    directives: [MODAL_DIRECTIVES]
+    styleUrls: ['/components/regions/regions.component.css']
 })
 export class RegionsComponent implements OnInit {
     regions: Region[];

@@ -1,15 +1,13 @@
 import {Component, OnInit, ViewChild} from "@angular/core";
 import {CompaniesService} from "../../shared/services/src/companies.service";
 import {Company, AddressDetails, ContactDetails, ServiceProvider} from "../../shared/model";
-import {MODAL_DIRECTIVES, ModalComponent} from "ng2-bs4-modal/ng2-bs4-modal";
+import {ModalComponent} from "ng2-bs4-modal/ng2-bs4-modal";
 import * as _ from "lodash";
 
 @Component({
     selector: 'companies',
-    moduleId: module.id,
     templateUrl: '/components/companies/companies.component.html',
-    styleUrls : ['/components/companies/companies.component.css'],
-    directives: [MODAL_DIRECTIVES]
+    styleUrls : ['/components/companies/companies.component.css']
 })
 export class CompaniesComponent implements OnInit{
     companies: Company[];
