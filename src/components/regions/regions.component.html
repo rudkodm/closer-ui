@@ -26,7 +26,7 @@
 </div>
 
 <!-- Modal -->
-<modal #modal (onDismiss)="onDismiss($event)">
+<modal #modal (onDismiss)="onDismiss($event)" (onClose)="onClose($event)" (onOpen)="onOpen($event)">
     <modal-header [show-close]="true">
         <h4 class="modal-title">Region Form</h4>
     </modal-header>
@@ -61,6 +61,22 @@
                     <input type="number" class="form-control" placeholder="Radius" [(ngModel)]="region.zone.radius" name="regionZoneRadius">
                 </div>
             </div>
+
+            <div class="form-group row" *ngIf="modalIsOpen">
+                <label class="col-sm-2 form-control-label">Map</label>
+                <div class="col-xs-10">
+                    <sebm-google-map [latitude]="region.zone.center.latitude" [longitude]="region.zone.center.longitude" [zoom]="15" #map>
+                        <sebm-google-map-circle [latitude]="region.zone.center.latitude" [longitude]="region.zone.center.longitude"
+                                                [radius]="region.zone.radius"
+                                                (centerChange)="onMapCircleCenterChange(region.zone.center, $event)"
+                                                (radiusChange)="onMapCircleRadiusChange(region.zone, $event)"
+                                                [circleDraggable]="true"
+                                                [editable]="true">
+                        </sebm-google-map-circle>
+                    </sebm-google-map>
+                </div>
+            </div>
+
         </form>
     </modal-body>
     <modal-footer>
@@ -69,4 +85,3 @@
         <button *ngIf="!isAddNewOpt" type="button" class="btn btn-danger" (click)="doDelete()">Delete</button>
     </modal-footer>
 </modal>
-

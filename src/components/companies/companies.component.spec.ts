@@ -5,7 +5,6 @@ import {CompaniesComponent} from "./companies.component";
 import {Component} from "@angular/core";
 @Component({
     selector: 'test-companies',
-    template: '<sd-companies></sd-companies>',
-    directives: []
+    template: '<sd-companies></sd-companies>'
 })
 class TestCompaniesComponent {}

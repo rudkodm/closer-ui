@@ -1,6 +1,5 @@
 import {Component, OnInit, ViewChild} from "@angular/core";
-import {DateTimePickerDirective} from "ng2-datetime-picker";
-import {MODAL_DIRECTIVES, ModalComponent} from 'ng2-bs4-modal/ng2-bs4-modal'
+import {ModalComponent} from 'ng2-bs4-modal/ng2-bs4-modal'
 import * as _ from 'lodash'
 import {Promotion, Region, ServiceProvider} from "../../shared/model";
 import {ProvidersService} from "../../shared/services/src/providers.service";
@@ -13,10 +12,8 @@ import 'rxjs/add/operator/mergeMap';
 
 @Component({
     selector: 'selectedPromotions',
-    moduleId: module.id,
-    templateUrl: '/components/promotions/promotions.component.html',
-    styleUrls: ['/components/promotions/promotions.component.css'],
-    directives: [MODAL_DIRECTIVES, DateTimePickerDirective]
+    templateUrl: 'components/promotions/promotions.component.html',
+    styleUrls: ['components/promotions/promotions.component.css']
 })
 export class PromotionsComponent implements OnInit {
     services: ServiceProvider[];
@@ -25,7 +22,6 @@ export class PromotionsComponent implements OnInit {
     promotion: Promotion = new Promotion();
     error: Error;
     isAddNewOpt: Boolean = false;
-    testDate: Date = new Date()
 
     @ViewChild('modal')
     modal: ModalComponent;

@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from "@angular/core";
-import {Company, AddressDetails, ContactDetails, ServiceProvider, Region} from "../../shared/model";
-import {MODAL_DIRECTIVES, ModalComponent} from "ng2-bs4-modal/ng2-bs4-modal";
+import {ServiceProvider, Region} from "../../shared/model";
+import {ModalComponent} from "ng2-bs4-modal/ng2-bs4-modal";
 import * as _ from "lodash";
 import {ProvidersService} from "../../shared/services/src/providers.service";
 import {RegionsService} from "../../shared/services/src/regions.service";
@@ -11,10 +11,8 @@ import 'rxjs/add/operator/mergeMap';
 
 @Component({
     selector: 'providers',
-    moduleId: module.id,
-    templateUrl: '/components/providers/providers.component.html',
-    styleUrls: ['/components/providers/providers.component.css'],
-    directives: [MODAL_DIRECTIVES]
+    templateUrl: 'components/providers/providers.component.html',
+    styleUrls: ['components/providers/providers.component.css']
 })
 export class ProvidersComponent implements OnInit {
     services: ServiceProvider[];
