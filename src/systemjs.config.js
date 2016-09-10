@@ -7,12 +7,14 @@
         'typescript':                 'node_modules/typescript/lib/typescript.js',
         'ng2-datetime-picker':        'node_modules/ng2-datetime-picker',
         'ng2-bs4-modal':              'node_modules/ng2-bs4-modal',
+        'angular2-google-maps':       'node_modules/angular2-google-maps',
         'lodash':                     'node_modules/lodash/lodash.js'
     };
 
     var packages = {
         'rxjs':                       { defaultExtension: 'js' },
-        'ng2-datetime-picker':        { main: 'dist/index.js', defaultExtension: 'js' }
+        'ng2-datetime-picker':        { main: 'dist/index.js', defaultExtension: 'js' },
+        'angular2-google-maps/core':  { main: 'index.js', defaultExtension: 'js' }
     };
 
     var ngPackageNames = [

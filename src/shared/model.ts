@@ -1,29 +1,39 @@
 export class Region {
-    id:string;
-    name:string;
-    description:string;
-    zone:Zone = new Zone();
+    id: string;
+    name: string;
+    description: string;
+    zone: Zone = new Zone();
 }
 
 export class Zone {
-    center:Location = new Location();
-    radius:number;
+    constructor(lat?: number, lng?: number, rad?: number) {
+        this.center = new Location(lat, lng);
+        this.radius = rad;
+    }
+
+    center: Location;
+    radius: number;
 }
 
 export class Location {
-    latitude:number;
-    longitude:number;
+    constructor(lat?: number, lng?: number) {
+        this.latitude = lat;
+        this.longitude = lng;
+    }
+
+    latitude: number;
+    longitude: number;
 }
 
 export class Promotion {
-    id:string;
-    serviceId:string;
-    promoCode:string;
-    media:string;
-    title:string;
-    expirationDateTime:Date;
-    shortDescription:string;
-    fullDescription:string;
+    id: string;
+    serviceId: string;
+    promoCode: string;
+    media: string;
+    title: string;
+    expirationDateTime: Date;
+    shortDescription: string;
+    fullDescription: string;
     rule: Rule = new Rule();
 }
 

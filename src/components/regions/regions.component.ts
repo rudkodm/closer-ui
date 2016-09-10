@@ -2,35 +2,38 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {RegionsService} from '../../shared/services/src/regions.service'
 import {ModalComponent} from 'ng2-bs4-modal/ng2-bs4-modal'
 import * as _ from 'lodash'
-import {Region} from "../../shared/model";
+import {Region, Location, Zone} from "../../shared/model";
+import { SebmGoogleMap} from 'angular2-google-maps/core';
 
 @Component({
     selector: 'regions',
-    templateUrl: '/components/regions/regions.component.html',
-    styleUrls: ['/components/regions/regions.component.css']
+    templateUrl: 'components/regions/regions.component.html',
+    styleUrls: ['components/regions/regions.component.css']
 })
 export class RegionsComponent implements OnInit {
     regions: Region[];
-    region: Region = new Region();
+    region: Region;
+
     error: Error;
     isAddNewOpt: Boolean = false;
 
     @ViewChild('modal')
     modal: ModalComponent;
     modalSize = 'lg';
+    modalIsOpen: boolean = false;
+
+    @ViewChild('map')
+    map: SebmGoogleMap;
 
     constructor(private regionsService: RegionsService) {
     }
 
     ngOnInit() {
-        this.getRegions()
-    }
-
-    private getRegions() {
         this.regionsService
             .getRegions()
             .then(regions => this.regions = regions)
             .catch(error => this.error = error);
+        this.region = this.defaultRegion();
     }
 
     doSave() {
@@ -55,23 +58,22 @@ export class RegionsComponent implements OnInit {
         } else {
             updateOpt.call(this);
         }
-        this.clear()
         this.modal.close()
     }
 
     private replaceWith(regions: Region[], region: Region) {
-        let index = this.findRegionPosition(region)
-        regions.splice(index, 1, region)
+        let index = this.findRegionPosition(region);
+        regions.splice(index, 1, region);
     }
 
     doEdit(region: Region) {
-        this.region = _.cloneDeep(region)
-        this.modal.open(this.modalSize)
+        this.region = _.cloneDeep(region);
+        this.modal.open(this.modalSize);
     }
 
     doAdd() {
-        this.isAddNewOpt = true
-        this.modal.open(this.modalSize)
+        this.isAddNewOpt = true;
+        this.modal.open(this.modalSize);
     }
 
     doDelete() {
@@ -92,9 +94,38 @@ export class RegionsComponent implements OnInit {
         this.clear()
     }
 
+    onClose(event) {
+        this.clear()
+    }
+
+    onOpen(event){
+        this.modalIsOpen = true;
+        setTimeout(() => {
+            this.map.triggerResize()
+        })
+    }
+
+    onMapCircleCenterChange(center: Location, point ) {
+        center.latitude = point.lat;
+        center.longitude = point.lng;
+    }
+
+    onMapCircleRadiusChange(zone: Zone, radius) {
+        zone.radius = radius
+    }
+
     private clear() {
-        this.isAddNewOpt = false
-        this.region = new Region()
+        this.modalIsOpen = false;
+        this.isAddNewOpt = false;
+        this.region = this.defaultRegion();
+        this.map.triggerResize();
+    }
+
+    private defaultRegion() {
+        let region = new Region();
+        // Set BigBen as a default. Later User IP can be used
+        region.zone = new Zone(51.500390404939786, -0.12429392429589825, 50);
+        return region;
     }
 
     private findRegionPosition(region: Region) {

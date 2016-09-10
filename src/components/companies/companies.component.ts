@@ -6,8 +6,8 @@ import * as _ from "lodash";
 
 @Component({
     selector: 'companies',
-    templateUrl: '/components/companies/companies.component.html',
-    styleUrls : ['/components/companies/companies.component.css']
+    templateUrl: 'components/companies/companies.component.html',
+    styleUrls : ['components/companies/companies.component.css']
 })
 export class CompaniesComponent implements OnInit{
     companies: Company[];

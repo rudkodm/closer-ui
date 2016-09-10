@@ -12,8 +12,8 @@ import 'rxjs/add/operator/mergeMap';
 
 @Component({
     selector: 'selectedPromotions',
-    templateUrl: '/components/promotions/promotions.component.html',
-    styleUrls: ['/components/promotions/promotions.component.css']
+    templateUrl: 'components/promotions/promotions.component.html',
+    styleUrls: ['components/promotions/promotions.component.css']
 })
 export class PromotionsComponent implements OnInit {
     services: ServiceProvider[];
@@ -22,7 +22,6 @@ export class PromotionsComponent implements OnInit {
     promotion: Promotion = new Promotion();
     error: Error;
     isAddNewOpt: Boolean = false;
-    testDate: Date = new Date()
 
     @ViewChild('modal')
     modal: ModalComponent;

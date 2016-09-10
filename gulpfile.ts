@@ -10,7 +10,7 @@ gulp.task('serve:dev', callback =>
 );
 
 gulp.task('serve:prod', callback =>
-    runSequence('build:prod','server:prod')
+    runSequence('server:prod')
 );
 
 gulp.task('build:dev', callback =>
