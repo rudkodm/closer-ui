@@ -23,7 +23,7 @@ export class PromotionsComponent implements OnInit {
     error: Error;
     isAddNewOpt: Boolean = false;
 
-    @ViewChild('modal')
+    @ViewChild(ModalComponent)
     modal: ModalComponent;
     modalSize = 'lg';
 

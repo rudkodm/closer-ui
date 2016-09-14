@@ -18,6 +18,10 @@ export class AppConfiguration {
         return this.url(`api/regions/${regionID}`);
     };
 
+    coverRegion = () => {
+        return this.url(`api/regions/cover`);
+    };
+
     companiesURL = () => {
         return this.url('api/companies')
     };

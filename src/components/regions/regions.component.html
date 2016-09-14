@@ -68,8 +68,8 @@
                     <sebm-google-map [latitude]="region.zone.center.latitude" [longitude]="region.zone.center.longitude" [zoom]="15" #map>
                         <sebm-google-map-circle [latitude]="region.zone.center.latitude" [longitude]="region.zone.center.longitude"
                                                 [radius]="region.zone.radius"
-                                                (centerChange)="onMapCircleCenterChange(region.zone.center, $event)"
-                                                (radiusChange)="onMapCircleRadiusChange(region.zone, $event)"
+                                                (centerChange)="onCenterChange(region.zone.center, $event)"
+                                                (radiusChange)="onRadiusChange(region.zone, $event)"
                                                 [circleDraggable]="true"
                                                 [editable]="true">
                         </sebm-google-map-circle>

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Http, Headers} from '@angular/http';
-import {Region} from '../../model'
+import {Region, Location} from '../../model'
 
 import 'rxjs/add/operator/toPromise';
 import {AppConfiguration} from "../../../config";
@@ -21,6 +21,12 @@ export class RegionsService {
             .then(response => response.json())
     }
 
+    getCoverRegion(point: Location):Promise<Region> {
+        let headers = new Headers({'Content-Type': 'application/json'});
+        return this.http.post(this.conf.coverRegion(), JSON.stringify(point), {headers: headers})
+            .toPromise()
+            .then(response => response.json())
+    }
 
     update(region:Region): Promise<Region> {
         let headers = new Headers({'Content-Type': 'application/json'});

@@ -1,13 +1,10 @@
 import {Component, OnInit, ViewChild} from "@angular/core";
 import {ServiceProvider, Region} from "../../shared/model";
 import {ModalComponent} from "ng2-bs4-modal/ng2-bs4-modal";
-import * as _ from "lodash";
 import {ProvidersService} from "../../shared/services/src/providers.service";
 import {RegionsService} from "../../shared/services/src/regions.service";
 import {LocationService} from "../../shared/services/src/location.service";
-import {Observable} from "rxjs/Rx";
-import 'rxjs/add/operator/merge';
-import 'rxjs/add/operator/mergeMap';
+import * as _ from "lodash";
 
 @Component({
     selector: 'providers',
@@ -16,12 +13,12 @@ import 'rxjs/add/operator/mergeMap';
 })
 export class ProvidersComponent implements OnInit {
     services: ServiceProvider[];
-    regions: Region[];
     service: ServiceProvider = new ServiceProvider();
+    region: Region;
     error: Error;
     isAddNewOpt: Boolean = false;
 
-    @ViewChild('modal')
+    @ViewChild(ModalComponent)
     modal: ModalComponent;
     modalSize = 'lg';
 
@@ -31,33 +28,15 @@ export class ProvidersComponent implements OnInit {
     }
 
     ngOnInit() {
-        let observables = [
-            this.providerService.getProviders(),
-            this.regionsService.getRegions()
-        ];
-        Observable
-            .forkJoin(observables)
-            .subscribe(
-                data => {
-                    this.services = data[0];
-                    this.regions = data[1];
-                },
-                errors => {
-                    this.error = errors[0]
-                }
-            );
-    }
-
-    regionInformationOf(id: string): Region {
-        return this.regions.find(r => r.id === id)
+        this.providerService.getProviders()
+            .then(services => this.services = services)
+            .catch(error => this.error = error);
     }
 
     doSave() {
-        if (this.isAddNewOpt) {
-            this.saveOpt(this.service)
-        } else {
-            this.updateOpt(this.service)
-        }
+        if (this.isAddNewOpt) this.saveOpt(this.service);
+        else this.updateOpt(this.service);
+
         this.clear();
         this.modal.close()
     }
@@ -85,7 +64,10 @@ export class ProvidersComponent implements OnInit {
     }
 
     doEdit(service: ServiceProvider) {
-        this.service = _.cloneDeep(service)
+        this.service = _.cloneDeep(service);
+        this.regionsService
+            .getRegionById(service.regionId)
+            .then(r => this.region = r);
         this.modal.open(this.modalSize)
     }
 
@@ -108,17 +90,24 @@ export class ProvidersComponent implements OnInit {
         services.splice(index, 1)
     }
 
+    private findPosition(service: ServiceProvider): number {
+        return this.services.findIndex(s => s.id === service.id);
+    }
+
     onDismiss(event) {
         this.clear()
     }
 
-    private clear() {
-        this.isAddNewOpt = false
-        this.service = new ServiceProvider()
+    onClose(event) {
+        this.clear()
     }
 
+    onOpen(event){
+    }
 
-    private findPosition(service: ServiceProvider) {
-        return this.regions.findIndex(s => s.id === service.id);
+    private clear() {
+        this.isAddNewOpt = false;
+        this.service = new ServiceProvider();
+        this.region = null;
     }
 }

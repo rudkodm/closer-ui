@@ -16,7 +16,7 @@ export class CompaniesComponent implements OnInit{
     error: Error;
     isAddNewOpt: Boolean = false;
 
-    @ViewChild('companyModal')
+    @ViewChild(ModalComponent)
     modal: ModalComponent;
     modalSize = 'lg';
 
@@ -40,37 +40,6 @@ export class CompaniesComponent implements OnInit{
             .catch(error => this.error = error);
     }
 
-    // doSave() {
-    //     function saveOpt() {
-    //         this.regionsService
-    //             .save(this.region)
-    //             .then(region => this.regions.push(region))
-    //             .catch(error => this.error = error)
-    //     }
-    //
-    //     function updateOpt() {
-    //         this.regionsService
-    //             .update(this.region)
-    //             .then(region => {
-    //                 this.replaceWith(this.regions, region);
-    //             })
-    //             .catch(error => this.error = error)
-    //     }
-    //
-    //     if (this.isAddNewOpt) {
-    //         saveOpt.call(this);
-    //     } else {
-    //         updateOpt.call(this);
-    //     }
-    //     this.clear()
-    //     this.modal.close()
-    // }
-    //
-    // private replaceWith(regions: Region[], region: Region) {
-    //     let index = this.findPosition(region)
-    //     regions.splice(index, 1, region)
-    // }
-    //
     doEdit(company: Company) {
         this.company = _.cloneDeep(company)
         this.modal.open(this.modalSize)
@@ -80,21 +49,7 @@ export class CompaniesComponent implements OnInit{
         this.isAddNewOpt = true
         this.modal.open(this.modalSize)
     }
-    //
-    // doDelete() {
-    //     this.regionsService
-    //         .delete(this.region)
-    //         .catch(error  => this.error = error)
-    //
-    //     this.removeRegion(this.regions, this.region)
-    //     this.modal.close()
-    // }
-    //
-    // private removeRegion(regions: Region[], region: Region) {
-    //     let index = this.findPosition(region)
-    //     regions.splice(index, 1)
-    // }
-    //
+
     onDismiss(event) {
         this.clear()
     }
@@ -103,20 +58,4 @@ export class CompaniesComponent implements OnInit{
         this.isAddNewOpt = false
         this.company = new Company()
     }
-    //
-    // private findPosition(region: Region) {
-    //     return this.regions.findIndex(r => r.id === region.id);
-    // }
-}
-
-export class ServicesDetails {
-    companyId: string;
-    companyName: string;
-    companyDescription: string;
-    companyContactDetails: ContactDetails;
-    serviceId: string;
-    regionId: string;
-    businessCategory: string;
-    addressDetails: AddressDetails;
-    contactDetails: ContactDetails;
 }
