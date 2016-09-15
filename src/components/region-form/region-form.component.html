@@ -18,13 +18,16 @@
 
     <div class="form-group row">
         <label class="col-sm-2 form-control-label">Location</label>
-        <div class="col-xs-2">
+        <div class="col-xs-3">
+            <label>Latitude</label>
             <input type="number" class="form-control" placeholder="Latitude" [(ngModel)]="region.zone.center.latitude" name="regionZoneLatitude">
         </div>
-        <div class="col-xs-2">
+        <div class="col-xs-3">
+            <label>Longitude</label>
             <input type="number" class="form-control" placeholder="Longitude" [(ngModel)]="region.zone.center.longitude" name="regionZoneLongitude">
         </div>
-        <div class="col-xs-2">
+        <div class="col-xs-3">
+            <label>Radius, meters</label>
             <input type="number" class="form-control" placeholder="Radius" [(ngModel)]="region.zone.radius" name="regionZoneRadius">
         </div>
     </div>

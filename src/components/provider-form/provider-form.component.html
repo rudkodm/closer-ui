@@ -43,7 +43,6 @@
                    placeholder="Business Address of a Service Provider"
                    [ngModel]="service.addressDetails.address"
                    (blur)="processLocation(address)"
-                   required
                    name="address"
                    #address="ngModel">
 
@@ -82,9 +81,7 @@
     <div class="form-group row">
         <label for="region" class="col-sm-2 form-control-label">Region</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" id="region"
-                   disabled
-                   [value]="region?.name">
+            <input type="text" class="form-control" id="region" disabled [(ngModel)]="region.name" name="region">
         </div>
     </div>
 

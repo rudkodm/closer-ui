@@ -14,7 +14,7 @@ import {Utils} from "../../shared/helpers/response.helpers";
 export class ProvidersComponent implements OnInit {
     services: ServiceProvider[];
     service: ServiceProvider = new ServiceProvider();
-    region: Region;
+    region: Region = new Region();
     error: Error;
     isAddNewOpt: Boolean = false;
 
@@ -88,6 +88,6 @@ export class ProvidersComponent implements OnInit {
     private clear() {
         this.isAddNewOpt = false;
         this.service = new ServiceProvider();
-        this.region = null;
+        this.region = new Region();
     }
 }

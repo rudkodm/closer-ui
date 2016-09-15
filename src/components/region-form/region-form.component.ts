@@ -1,4 +1,4 @@
-import {Component, ViewChild, Input, OnInit} from '@angular/core';
+import {Component, ViewChild, Input, ContentChild, ElementRef} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {RegionsService} from "../../shared/services/src/regions.service";
 import {Location, Zone, Region} from "../../shared/model";
@@ -11,7 +11,7 @@ import {SebmGoogleMap} from 'angular2-google-maps/core';
 })
 export class RegionFormComponent {
     @Input('selectedRegion') region: Region;
-    @ViewChild('form') form: NgForm;
+    @ViewChild(NgForm) form: NgForm;
     @ViewChild(SebmGoogleMap) map: SebmGoogleMap;
     private shown;
 
@@ -33,10 +33,12 @@ export class RegionFormComponent {
 
     show() {
         this.shown = true;
-        setTimeout(() => this.map.triggerResize());
+        setTimeout(
+            this.map.triggerResize()
+        );
     }
 
-    hide(){
+    hide() {
         this.map.triggerResize();
         this.shown = false;
     }

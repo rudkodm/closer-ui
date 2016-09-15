@@ -31,7 +31,8 @@ export class ProviderFormComponent {
                 .getLocationOf(str)
                 .then(location => {
                     this.service.addressDetails.location = location;
-                    return location
+                    this.service.addressDetails.address = address;
+                    return location;
                 })
         };
 
