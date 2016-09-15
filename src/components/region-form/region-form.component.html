@@ -1,0 +1,50 @@
+<form #form="ngForm">
+    <div class="form-group row">
+        <label for="regionName" class="col-sm-2 form-control-label">Name</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="regionName" placeholder="Region Name" [(ngModel)]="region.name" name="regionName">
+        </div>
+    </div>
+
+
+    <div class="form-group row">
+        <label for="regionDescription" class="col-sm-2 form-control-label">Description</label>
+        <div class="col-sm-10">
+                    <textarea class="form-control" id="regionDescription" rows="3"
+                              placeholder="Region Description" [(ngModel)]="region.description" name="regionDescription"></textarea>
+        </div>
+    </div>
+
+
+    <div class="form-group row">
+        <label class="col-sm-2 form-control-label">Location</label>
+        <div class="col-xs-2">
+            <input type="number" class="form-control" placeholder="Latitude" [(ngModel)]="region.zone.center.latitude" name="regionZoneLatitude">
+        </div>
+        <div class="col-xs-2">
+            <input type="number" class="form-control" placeholder="Longitude" [(ngModel)]="region.zone.center.longitude" name="regionZoneLongitude">
+        </div>
+        <div class="col-xs-2">
+            <input type="number" class="form-control" placeholder="Radius" [(ngModel)]="region.zone.radius" name="regionZoneRadius">
+        </div>
+    </div>
+
+    <div class="form-group row" *ngIf="shown">
+        <label class="col-sm-2 form-control-label">Map</label>
+        <div class="col-xs-10">
+            <sebm-google-map [latitude]="region.zone.center.latitude"
+                             [longitude]="region.zone.center.longitude"
+                             [zoom]="15"
+                             #map>
+                <sebm-google-map-circle [latitude]="region.zone.center.latitude" [longitude]="region.zone.center.longitude"
+                                        [radius]="region.zone.radius"
+                                        (centerChange)="onCenterChange(region.zone.center, $event)"
+                                        (radiusChange)="onRadiusChange(region.zone, $event)"
+                                        [circleDraggable]="true"
+                                        [editable]="true">
+                </sebm-google-map-circle>
+            </sebm-google-map>
+        </div>
+    </div>
+
+</form>

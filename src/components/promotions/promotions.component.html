@@ -32,7 +32,7 @@
 </div>
 
 <!-- Modal -->
-<modal #modal (onDismiss)="onDismiss($event)">
+<modal #modal (onDismiss)="onDismiss($event)" (onClose)="onClose($event)" (onOpen)="onOpen($event)">
     <modal-header [show-close]="true">
         <h4 class="modal-title">Promotion Form</h4>
     </modal-header>

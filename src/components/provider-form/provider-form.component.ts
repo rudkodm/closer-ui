@@ -1,6 +1,6 @@
-import {Component, Input, ViewChild, OnChanges} from '@angular/core';
+import {Component, Input, ViewChild} from '@angular/core';
 import {NgForm, NgModel} from '@angular/forms';
-import {ServiceProvider, AddressDetails, Region} from "../../shared/model";
+import {ServiceProvider, Region} from "../../shared/model";
 import {RegionsService} from "../../shared/services/src/regions.service";
 import {LocationService} from "../../shared/services/src/location.service";
 

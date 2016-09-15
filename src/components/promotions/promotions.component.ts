@@ -7,11 +7,10 @@ import {RegionsService} from "../../shared/services/src/regions.service";
 import {PromotionsService} from "../../shared/services/src/promotions.service";
 
 import {Observable} from "rxjs/Rx";
-import 'rxjs/add/operator/merge';
-import 'rxjs/add/operator/mergeMap';
+import {Utils} from "../../shared/helpers/response.helpers";
 
 @Component({
-    selector: 'selectedPromotions',
+    selector: 'promotions',
     templateUrl: 'components/promotions/promotions.component.html',
     styleUrls: ['components/promotions/promotions.component.css']
 })
@@ -33,23 +32,20 @@ export class PromotionsComponent implements OnInit {
     }
 
     ngOnInit() {
-        let observables = [
+        Observable.forkJoin([
             this.providerService.getProviders(),
             this.regionsService.getRegions(),
             this.promotionService.getPromotions()
-        ];
-        Observable
-            .forkJoin(observables)
-            .subscribe(
-                data => {
-                    this.services = data[0];
-                    this.regions = data[1];
-                    this.promotions = data[2];
-                },
-                errors => {
-                    this.error = errors[0]
-                }
-            );
+        ]).subscribe(
+            data => {
+                this.services = data[0];
+                this.regions = data[1];
+                this.promotions = data[2];
+            },
+            errors => {
+                this.error = errors[0]
+            }
+        );
     }
 
     regionInformationOf(id: string): Region {
@@ -61,13 +57,11 @@ export class PromotionsComponent implements OnInit {
     }
 
     doSave() {
-        if (this.isAddNewOpt) {
-            this.saveOpt(this.promotion)
-        } else {
-            this.updateOpt(this.promotion)
-        }
+        if (this.isAddNewOpt)  this.saveOpt(this.promotion);
+        else  this.updateOpt(this.promotion);
+
         this.clear();
-        this.modal.close()
+        this.modal.close();
     }
 
     private saveOpt(promotion: Promotion) {
@@ -79,51 +73,42 @@ export class PromotionsComponent implements OnInit {
     private updateOpt(promotion: Promotion) {
         this.promotionService
             .update(promotion)
-            .then(p => this.replaceWith(this.promotions, p))
+            .then(p => Utils.replaceWith(this.promotions, p))
             .catch(error => this.error = error)
     }
 
-    private replaceWith(promotions: Promotion[], promotion: Promotion) {
-        let index = this.findPosition(promotion)
-        promotions.splice(index, 1, promotion)
-    }
-
     doEdit(promotion: Promotion) {
-        this.promotion = _.cloneDeep(promotion)
-        this.modal.open(this.modalSize)
+        this.promotion = _.cloneDeep(promotion);
+        this.modal.open(this.modalSize);
     }
 
     doAdd() {
-        this.isAddNewOpt = true
-        this.modal.open(this.modalSize)
+        this.isAddNewOpt = true;
+        this.modal.open(this.modalSize);
     }
 
     doDelete() {
         this.promotionService
             .delete(this.promotion)
-            .catch(error => this.error = error)
+            .catch(error => this.error = error);
 
-        this.removeObject(this.promotions, this.promotion)
-        this.modal.close()
-    }
-
-    private removeObject(promotions: Promotion[], promotion: Promotion) {
-        let index = this.findPosition(promotion)
-        promotions.splice(index, 1)
+        Utils.removeObject(this.promotions, this.promotion);
+        this.modal.close();
     }
 
     onDismiss(event) {
         this.clear()
     }
 
+    onClose(event) {
+        this.clear()
+    }
+
+    onOpen(event) {
+    }
 
     private clear() {
         this.isAddNewOpt = false
         this.promotion = new Promotion()
-    }
-
-
-    private findPosition(promotion: Promotion) {
-        return this.regions.findIndex(p => p.id === promotion.id);
     }
 }

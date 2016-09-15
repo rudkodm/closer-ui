@@ -1,4 +1,4 @@
-export class Region {
+export class Region implements Unique {
     id: string;
     name: string;
     description: string;
@@ -25,7 +25,7 @@ export class Location {
     longitude: number;
 }
 
-export class Promotion {
+export class Promotion implements Unique {
     id: string;
     serviceId: string;
     promoCode: string;
@@ -41,7 +41,7 @@ export class Rule {
     description: string;
 }
 
-export class Company {
+export class Company implements Unique {
     id: string;
     name: string;
     description: string;
@@ -63,7 +63,7 @@ export class AddressDetails {
     location: Location = new Location()
 }
 
-export class ServiceProvider {
+export class ServiceProvider implements Unique {
     id: string;
     regionId: string;
     name: string;
@@ -76,4 +76,8 @@ export class ServiceProvider {
 export class PersonDetails {
     name: string;
     surname: string;
+}
+
+export interface Unique {
+    id: string
 }

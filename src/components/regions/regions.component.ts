@@ -1,9 +1,10 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {RegionsService} from '../../shared/services/src/regions.service'
 import {ModalComponent} from 'ng2-bs4-modal/ng2-bs4-modal'
-import {Region, Location, Zone} from "../../shared/model";
-import { SebmGoogleMap} from 'angular2-google-maps/core';
+import {Region, Zone} from "../../shared/model";
 import * as _ from 'lodash'
+import {Utils} from "../../shared/helpers/response.helpers";
+import {RegionFormComponent} from "../region-form/region-form.component";
 
 @Component({
     selector: 'regions',
@@ -20,10 +21,9 @@ export class RegionsComponent implements OnInit {
     @ViewChild(ModalComponent)
     modal: ModalComponent;
     modalSize = 'lg';
-    modalIsOpen: boolean = false;
 
-    @ViewChild(SebmGoogleMap)
-    map: SebmGoogleMap;
+    @ViewChild(RegionFormComponent)
+    form: RegionFormComponent;
 
     constructor(private regionsService: RegionsService) {
     }
@@ -52,15 +52,8 @@ export class RegionsComponent implements OnInit {
     private updateOpt() {
         this.regionsService
             .update(this.region)
-            .then(region => {
-                this.replaceWith(this.regions, region);
-            })
+            .then(region => Utils.replaceWith(this.regions, region))
             .catch(error => this.error = error)
-    }
-
-    private replaceWith(regions: Region[], region: Region) {
-        let index = this.findRegionPosition(region);
-        regions.splice(index, 1, region);
     }
 
     doEdit(region: Region) {
@@ -76,19 +69,9 @@ export class RegionsComponent implements OnInit {
     doDelete() {
         this.regionsService
             .delete(this.region)
-            .catch(error  => this.error = error)
-
-        this.removeRegion(this.regions, this.region)
+            .catch(error => this.error = error);
+        Utils.removeObject(this.regions, this.region);
         this.modal.close()
-    }
-
-    private removeRegion(regions: Region[], region: Region) {
-        let index = this.findRegionPosition(region)
-        regions.splice(index, 1)
-    }
-
-    private findRegionPosition(region: Region): number {
-        return this.regions.findIndex(r => r.id === region.id);
     }
 
     onDismiss(event) {
@@ -99,27 +82,14 @@ export class RegionsComponent implements OnInit {
         this.clear()
     }
 
-    onOpen(event){
-        this.modalIsOpen = true;
-        setTimeout(() => {
-            this.map.triggerResize()
-        })
-    }
-
-    onCenterChange(center: Location, point ) {
-        center.latitude = point.lat;
-        center.longitude = point.lng;
-    }
-
-    onRadiusChange(zone: Zone, radius) {
-        zone.radius = radius
+    onOpen(event) {
+        this.form.show()
     }
 
     private clear() {
-        this.modalIsOpen = false;
         this.isAddNewOpt = false;
         this.region = this.defaultRegion();
-        this.map.triggerResize();
+        this.form.hide()
     }
 
     private defaultRegion(): Region {

@@ -3,8 +3,8 @@ import {ServiceProvider, Region} from "../../shared/model";
 import {ModalComponent} from "ng2-bs4-modal/ng2-bs4-modal";
 import {ProvidersService} from "../../shared/services/src/providers.service";
 import {RegionsService} from "../../shared/services/src/regions.service";
-import {LocationService} from "../../shared/services/src/location.service";
 import * as _ from "lodash";
+import {Utils} from "../../shared/helpers/response.helpers";
 
 @Component({
     selector: 'providers',
@@ -23,14 +23,13 @@ export class ProvidersComponent implements OnInit {
     modalSize = 'lg';
 
     constructor(private providerService: ProvidersService,
-                private regionsService: RegionsService,
-                private locationService: LocationService) {
+                private regionsService: RegionsService) {
     }
 
     ngOnInit() {
         this.providerService.getProviders()
             .then(services => this.services = services)
-            .catch(error => this.error = error);
+            .catch(error => this.error = error)
     }
 
     doSave() {
@@ -38,29 +37,20 @@ export class ProvidersComponent implements OnInit {
         else this.updateOpt(this.service);
 
         this.clear();
-        this.modal.close()
+        this.modal.close();
     }
 
     private saveOpt(service: ServiceProvider) {
-        let address = service.addressDetails.address;
-        this.locationService.getLocationOf(address)
-            .then(location => {
-                service.addressDetails.location = location
-                this.providerService.save(service)
-                    .then(service => this.services.push(service))
-                    .catch( error => this.error = error)})
+        this.providerService.save(service)
+            .then(service => this.services.push(service))
+            .catch(error => this.error = error)
     }
 
     private updateOpt(service: ServiceProvider) {
         this.providerService
             .update(service)
-            .then(service => this.replaceWith(this.services, service))
+            .then(service => Utils.replaceWith(this.services, service))
             .catch(error => this.error = error)
-    }
-
-    private replaceWith(services: ServiceProvider[], service: ServiceProvider) {
-        let index = this.findPosition(service)
-        services.splice(index, 1, service)
     }
 
     doEdit(service: ServiceProvider) {
@@ -68,30 +58,20 @@ export class ProvidersComponent implements OnInit {
         this.regionsService
             .getRegionById(service.regionId)
             .then(r => this.region = r);
-        this.modal.open(this.modalSize)
+        this.modal.open(this.modalSize);
     }
 
     doAdd() {
-        this.isAddNewOpt = true
+        this.isAddNewOpt = true;
         this.modal.open(this.modalSize)
     }
 
     doDelete() {
         this.providerService
             .delete(this.service)
-            .catch(error  => this.error = error)
-
-        this.removeObject(this.services, this.service)
+            .catch(error => this.error = error);
+        Utils.removeObject(this.services, this.service);
         this.modal.close()
-    }
-
-    private removeObject(services: ServiceProvider[], service: ServiceProvider) {
-        let index = this.findPosition(service)
-        services.splice(index, 1)
-    }
-
-    private findPosition(service: ServiceProvider): number {
-        return this.services.findIndex(s => s.id === service.id);
     }
 
     onDismiss(event) {
@@ -102,7 +82,7 @@ export class ProvidersComponent implements OnInit {
         this.clear()
     }
 
-    onOpen(event){
+    onOpen(event) {
     }
 
     private clear() {
