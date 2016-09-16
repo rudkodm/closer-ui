@@ -3,7 +3,6 @@ import {ServiceProvider, Region} from "../../shared/model";
 import {ModalComponent} from "ng2-bs4-modal/ng2-bs4-modal";
 import {ProvidersService} from "../../shared/services/src/providers.service";
 import {RegionsService} from "../../shared/services/src/regions.service";
-import * as _ from "lodash";
 import {Utils} from "../../shared/helpers/response.helpers";
 
 @Component({
@@ -54,7 +53,7 @@ export class ProvidersComponent implements OnInit {
     }
 
     doEdit(service: ServiceProvider) {
-        this.service = _.cloneDeep(service);
+        this.service = Utils.clone(service);
         this.regionsService
             .getRegionById(service.regionId)
             .then(r => this.region = r);

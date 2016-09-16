@@ -1,1 +1,90 @@
-<h1> Hey, I'm promotionFormComponent !</h1>
+<form #form>
+
+    <div class="form-group row">
+        <label for="promotionTitle" class="col-sm-2 form-control-label">Title</label>
+        <div class="col-sm-10">
+            <input type="text"
+                   class="form-control"
+                   id="promotionTitle"
+                   name="promotionTitle"
+                   placeholder="Title"
+                   [(ngModel)]="promotion.title">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="promotionShortDescription" class="col-sm-2 form-control-label">Short Description</label>
+        <div class="col-sm-10">
+            <input type="text"
+                   class="form-control"
+                   id="promotionShortDescription"
+                   name="promotionShortDescription"
+                   placeholder="Promotion Short Description"
+                   [(ngModel)]="promotion.shortDescription">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="promotionFullDescription" class="col-sm-2 form-control-label">Full Description</label>
+        <div class="col-sm-10">
+                    <textarea class="form-control"
+                              id="promotionFullDescription"
+                              name="promotionFullDescription"
+                              rows="3"
+                              placeholder="Promotion Full Description"
+                              [(ngModel)]="promotion.fullDescription">
+                    </textarea>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="promotionExpirationDateTime" class="col-sm-2 form-control-label">Expiration
+            DateTime</label>
+        <div class="col-sm-10">
+            <input type="datetime"
+                   class="form-control"
+                   id="promotionExpirationDateTime"
+                   name="promotionExpirationDateTime"
+                   placeholder="Expiration DateTime"
+                   datetime-picker close-on-select="false"
+                   [(ngModel)]="promotion.expirationDateTime">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="promotionPromoCode" class="col-sm-2 form-control-label">Promo Code</label>
+        <div class="col-sm-10">
+            <input type="text"
+                   class="form-control"
+                   id="promotionPromoCode"
+                   name="promotionPromoCode"
+                   placeholder="Promo Code"
+                   [(ngModel)]="promotion.promoCode">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="promotionRule" class="col-sm-2 form-control-label">Promo Rule</label>
+        <div class="col-sm-10">
+            <input type="text"
+                   class="form-control"
+                   id="promotionRule"
+                   name="promotionRule"
+                   placeholder="Promo Code"
+                   [(ngModel)]="promotion.rule.description">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="promotionMedia" class="col-sm-2 form-control-label">Media Link</label>
+        <div class="col-sm-10">
+            <input type="text"
+                   class="form-control"
+                   id="promotionMedia"
+                   name="promotionMedia"
+                   placeholder="Media Link"
+                   [(ngModel)]="promotion.media">
+        </div>
+    </div>
+
+</form>

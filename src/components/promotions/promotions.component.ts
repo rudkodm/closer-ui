@@ -1,12 +1,8 @@
 import {Component, OnInit, ViewChild} from "@angular/core";
 import {ModalComponent} from 'ng2-bs4-modal/ng2-bs4-modal'
-import * as _ from 'lodash'
-import {Promotion, Region, ServiceProvider} from "../../shared/model";
-import {ProvidersService} from "../../shared/services/src/providers.service";
-import {RegionsService} from "../../shared/services/src/regions.service";
+import {Promotion} from "../../shared/model";
 import {PromotionsService} from "../../shared/services/src/promotions.service";
 
-import {Observable} from "rxjs/Rx";
 import {Utils} from "../../shared/helpers/response.helpers";
 
 @Component({
@@ -15,8 +11,6 @@ import {Utils} from "../../shared/helpers/response.helpers";
     styleUrls: ['components/promotions/promotions.component.css']
 })
 export class PromotionsComponent implements OnInit {
-    services: ServiceProvider[];
-    regions: Region[];
     promotions: Promotion[];
     promotion: Promotion = new Promotion();
     error: Error;
@@ -26,34 +20,15 @@ export class PromotionsComponent implements OnInit {
     modal: ModalComponent;
     modalSize = 'lg';
 
-    constructor(private promotionService: PromotionsService,
-                private providerService: ProvidersService,
-                private regionsService: RegionsService) {
+    constructor(private promotionService: PromotionsService) {
     }
 
     ngOnInit() {
-        Observable.forkJoin([
-            this.providerService.getProviders(),
-            this.regionsService.getRegions(),
-            this.promotionService.getPromotions()
-        ]).subscribe(
-            data => {
-                this.services = data[0];
-                this.regions = data[1];
-                this.promotions = data[2];
-            },
-            errors => {
-                this.error = errors[0]
-            }
-        );
-    }
-
-    regionInformationOf(id: string): Region {
-        return this.regions.find(r => r.id === id)
-    }
-
-    providerInformationOf(id: string): ServiceProvider {
-        return this.services.find(s => s.id === id)
+        this.promotionService.getPromotions().then(promotion => {
+            this.promotions = promotion;
+        }).catch(error => {
+            this.error = error
+        });
     }
 
     doSave() {
@@ -78,7 +53,7 @@ export class PromotionsComponent implements OnInit {
     }
 
     doEdit(promotion: Promotion) {
-        this.promotion = _.cloneDeep(promotion);
+        this.promotion = Utils.clone(promotion);
         this.modal.open(this.modalSize);
     }
 
@@ -108,7 +83,7 @@ export class PromotionsComponent implements OnInit {
     }
 
     private clear() {
-        this.isAddNewOpt = false
-        this.promotion = new Promotion()
+        this.isAddNewOpt = false;
+        this.promotion = new Promotion();
     }
 }

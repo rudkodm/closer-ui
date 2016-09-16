@@ -2,7 +2,6 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {RegionsService} from '../../shared/services/src/regions.service'
 import {ModalComponent} from 'ng2-bs4-modal/ng2-bs4-modal'
 import {Region, Zone} from "../../shared/model";
-import * as _ from 'lodash'
 import {Utils} from "../../shared/helpers/response.helpers";
 import {RegionFormComponent} from "../region-form/region-form.component";
 
@@ -57,7 +56,7 @@ export class RegionsComponent implements OnInit {
     }
 
     doEdit(region: Region) {
-        this.region = _.cloneDeep(region);
+        this.region = Utils.clone(region);
         this.modal.open(this.modalSize);
     }
 
