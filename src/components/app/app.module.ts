@@ -25,6 +25,9 @@ import {PromotionsService} from "../../shared/services/src/promotions.service";
 import {CompaniesService} from "../../shared/services/src/companies.service";
 import {ProvidersService} from "../../shared/services/src/providers.service";
 import {LocationService} from "../../shared/services/src/location.service";
+import {ProviderFormComponent} from "../provider-form/provider-form.component";
+import {RegionFormComponent} from "../region-form/region-form.component";
+import {PromotionFormComponent} from "../promotion-form/promotion-form.component";
 
 @NgModule({
     imports: [
@@ -45,7 +48,10 @@ import {LocationService} from "../../shared/services/src/location.service";
         RegionsComponent,
         PromotionsComponent,
         CompaniesComponent,
-        ProvidersComponent
+        ProvidersComponent,
+        ProviderFormComponent,
+        RegionFormComponent,
+        PromotionFormComponent
     ],
     providers: [
         AppConfiguration,

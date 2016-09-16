@@ -1,4 +1,4 @@
-export class Region {
+export class Region implements Unique {
     id: string;
     name: string;
     description: string;
@@ -6,12 +6,7 @@ export class Region {
 }
 
 export class Zone {
-    constructor(lat?: number, lng?: number, rad?: number) {
-        this.center = new Location(lat, lng);
-        this.radius = rad;
-    }
-
-    center: Location;
+    center: Location = new DefaultLocation();
     radius: number;
 }
 
@@ -25,7 +20,13 @@ export class Location {
     longitude: number;
 }
 
-export class Promotion {
+export class DefaultLocation extends Location {
+    constructor() {
+        super(51.500390404939786, -0.12429392429589825) // BigBen
+    }
+}
+
+export class Promotion implements Unique {
     id: string;
     serviceId: string;
     promoCode: string;
@@ -41,7 +42,7 @@ export class Rule {
     description: string;
 }
 
-export class Company {
+export class Company implements Unique {
     id: string;
     name: string;
     description: string;
@@ -60,10 +61,10 @@ export class AddressDetails {
     country: string;
     city: string;
     address: string;
-    location: Location = new Location()
+    location: Location = new DefaultLocation()
 }
 
-export class ServiceProvider {
+export class ServiceProvider implements Unique {
     id: string;
     regionId: string;
     name: string;
@@ -76,4 +77,8 @@ export class ServiceProvider {
 export class PersonDetails {
     name: string;
     surname: string;
+}
+
+export interface Unique {
+    id: string
 }

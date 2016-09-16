@@ -10,7 +10,6 @@
                 <th>Business Phone Number</th>
                 <th>Website</th>
                 <th>Business Category</th>
-                <th>Region</th>
             </tr>
             </thead>
 
@@ -23,7 +22,6 @@
                 <td>{{ s.contactDetails?.phoneNumber1 }}</td>
                 <td>{{ s.contactDetails?.webSite }}</td>
                 <td>{{ s.businessCategory }}</td>
-                <td>{{ regionInformationOf(s.regionId).name }}</td>
             </tr>
             </tbody>
         </table>
@@ -34,91 +32,16 @@
 </div>
 
 <!--Modal -->
-<modal #modal (onDismiss)="onDismiss($event)">
+<modal (onDismiss)="onDismiss($event)" (onClose)="onClose($event)" (onOpen)="onOpen($event)">
     <modal-header [show-close]="true">
         <h4 class="modal-title">Providers Form</h4>
     </modal-header>
     <modal-body>
-        <form>
-            <!-- Service Provider Details -->
-            <div class="form-group row">
-                <label for="serviceProviderName" class="col-sm-2 form-control-label">Name</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="serviceProviderName" placeholder="Service provider name"
-                           [(ngModel)]="service.name" name="serviceProviderName">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="serviceProviderCategory" class="col-sm-2 form-control-label">Category</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="serviceProviderCategory" placeholder="Business category"
-                           [(ngModel)]="service.businessCategory" name="serviceProviderCategory">
-                </div>
-            </div>
-
-            <!-- Register -->
-            <div class="form-group row">
-                <label for="registerName" class="col-sm-2 form-control-label">Register Name</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="registerName"
-                           placeholder="Name of a person who register a Service Provider"
-                           [(ngModel)]="service.registerDetails.name"
-                           name="registerName">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="registerSurname" class="col-sm-2 form-control-label">Register Surname</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="registerSurname"
-                           placeholder="Surname of a person who register a Service Provider"
-                           [(ngModel)]="service.registerDetails.surname"
-                           name="registerSurname">
-                </div>
-            </div>
-
-            <!-- Address -->
-            <div class="form-group row">
-                <label for="address" class="col-sm-2 form-control-label">Business Address</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="address"
-                           placeholder="Business Address of a Service Provider"
-                           [(ngModel)]="service.addressDetails.address"
-                           name="address">
-                </div>
-            </div>
-
-            <!-- Contacts -->
-            <div class="form-group row">
-                <label for="phoneNumber" class="col-sm-2 form-control-label">Phone Number</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="phoneNumber"
-                           placeholder="Phone Number" [(ngModel)]="service.contactDetails.phoneNumber1"
-                           name="phoneNumber">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="webSite" class="col-sm-2 form-control-label">Website</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="webSite"
-                           placeholder="Site URL"
-                           [(ngModel)]="service.contactDetails.webSite"
-                           name="webSite">
-                </div>
-            </div>
-
-            <!-- Regions -->
-            <div class="form-group">
-                <label for="availableRegions">Region</label>
-                <select class="form-control" id="availableRegions" [(ngModel)]="service.regionId" name="availableRegions">
-                    <option *ngFor="let r of regions" [value]="r.id">{{r.name}}</option>
-                </select>
-            </div>
-
-        </form>
+        <provider-form #form [selectedService]="service" [selectedRegion]="region"></provider-form>
     </modal-body>
     <modal-footer>
         <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Cancel</button>
-        <button type="button" class="btn btn-primary" (click)="doSave()">Save</button>
+        <button type="submit" class="btn btn-primary" (click)="doSave()" [disabled]="!form.valid()">Save</button>
         <button *ngIf="!isAddNewOpt" type="button" class="btn btn-danger" (click)="doDelete()">Delete</button>
     </modal-footer>
 </modal>
