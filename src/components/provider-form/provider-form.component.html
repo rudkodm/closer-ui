@@ -58,6 +58,20 @@
         </div>
     </div>
 
+    <div class="form-group row" *ngIf="shown">
+        <label class="col-sm-2 form-control-label">Map</label>
+        <div class="col-xs-10">
+            <sebm-google-map [latitude]="service.addressDetails.location.latitude"
+                             [longitude]="service.addressDetails.location.longitude"
+                             [zoom]="15"
+                             #map>
+                <sebm-google-map-marker [latitude]="service.addressDetails.location.latitude"
+                                        [longitude]="service.addressDetails.location.longitude">
+                </sebm-google-map-marker>
+            </sebm-google-map>
+        </div>
+    </div>
+
     <!-- Contacts -->
     <div class="form-group row">
         <label for="phoneNumber" class="col-sm-2 form-control-label">Phone Number</label>

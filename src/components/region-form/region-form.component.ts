@@ -1,4 +1,4 @@
-import {Component, ViewChild, Input, ContentChild, ElementRef} from '@angular/core';
+import {Component, ViewChild, Input} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {RegionsService} from "../../shared/services/src/regions.service";
 import {Location, Zone, Region} from "../../shared/model";
@@ -33,9 +33,7 @@ export class RegionFormComponent {
 
     show() {
         this.shown = true;
-        setTimeout(
-            this.map.triggerResize()
-        );
+        setTimeout( () => this.map.triggerResize());
     }
 
     hide() {

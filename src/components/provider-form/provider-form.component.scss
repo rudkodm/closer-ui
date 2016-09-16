@@ -1,5 +1,11 @@
 @import "../../shared/styles/variables";
 
+$size: 600px;
+
 .form-group .btn-group {
     margin-top: 0.2rem;
+}
+
+.sebm-google-map-container {
+    height: $size;
 }

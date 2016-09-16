@@ -3,6 +3,7 @@ import {NgForm, NgModel} from '@angular/forms';
 import {ServiceProvider, Region} from "../../shared/model";
 import {RegionsService} from "../../shared/services/src/regions.service";
 import {LocationService} from "../../shared/services/src/location.service";
+import {SebmGoogleMap} from 'angular2-google-maps/core';
 
 @Component({
     selector: 'provider-form',
@@ -13,6 +14,8 @@ export class ProviderFormComponent {
     @Input('selectedService') service: ServiceProvider;
     @Input('selectedRegion') region: Region;
     @ViewChild('form') form: NgForm;
+    @ViewChild(SebmGoogleMap) map: SebmGoogleMap;
+    private shown;
 
     constructor(private regionsService: RegionsService,
                 private locationService: LocationService) {
@@ -43,7 +46,6 @@ export class ProviderFormComponent {
                     let region = regions[0];
                     let emptyResponse = !region;
                     if (emptyResponse) {
-
                         model.control.setErrors({noRegion: "There is no cower region"})
                     } else {
                         this.region = region;
@@ -59,5 +61,15 @@ export class ProviderFormComponent {
         getLocationOfAddress(address)
             .then(findCoverRegion)
             .catch(processErrors);
+    }
+
+    show() {
+        this.shown = true;
+        setTimeout( () => this.map.triggerResize());
+    }
+
+    hide() {
+        this.map.triggerResize();
+        this.shown = false;
     }
 }

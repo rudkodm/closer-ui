@@ -17,12 +17,10 @@ export class RegionsComponent implements OnInit {
     error: Error;
     isAddNewOpt: Boolean = false;
 
-    @ViewChild(ModalComponent)
-    modal: ModalComponent;
+    @ViewChild(ModalComponent) modal: ModalComponent;
     modalSize = 'lg';
 
-    @ViewChild(RegionFormComponent)
-    form: RegionFormComponent;
+    @ViewChild(RegionFormComponent) form: RegionFormComponent;
 
     constructor(private regionsService: RegionsService) {
     }

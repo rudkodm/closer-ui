@@ -4,6 +4,7 @@ import {ModalComponent} from "ng2-bs4-modal/ng2-bs4-modal";
 import {ProvidersService} from "../../shared/services/src/providers.service";
 import {RegionsService} from "../../shared/services/src/regions.service";
 import {Utils} from "../../shared/helpers/response.helpers";
+import {ProviderFormComponent} from "../provider-form/provider-form.component";
 
 @Component({
     selector: 'providers',
@@ -17,9 +18,10 @@ export class ProvidersComponent implements OnInit {
     error: Error;
     isAddNewOpt: Boolean = false;
 
-    @ViewChild(ModalComponent)
-    modal: ModalComponent;
+    @ViewChild(ModalComponent) modal: ModalComponent;
     modalSize = 'lg';
+
+    @ViewChild(ProviderFormComponent) form: ProviderFormComponent;
 
     constructor(private providerService: ProvidersService,
                 private regionsService: RegionsService) {
@@ -82,11 +84,13 @@ export class ProvidersComponent implements OnInit {
     }
 
     onOpen(event) {
+        this.form.show()
     }
 
     private clear() {
         this.isAddNewOpt = false;
         this.service = new ServiceProvider();
         this.region = new Region();
+        this.form.hide()
     }
 }
