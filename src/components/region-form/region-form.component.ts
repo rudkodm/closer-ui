@@ -37,8 +37,7 @@ export class RegionFormComponent {
     }
 
     hide() {
-        this.map.triggerResize();
-        this.shown = false;
+        this.shown = false
     }
 
 }

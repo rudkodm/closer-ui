@@ -6,12 +6,7 @@ export class Region implements Unique {
 }
 
 export class Zone {
-    constructor(lat?: number, lng?: number, rad?: number) {
-        this.center = new Location(lat, lng);
-        this.radius = rad;
-    }
-
-    center: Location;
+    center: Location = new DefaultLocation();
     radius: number;
 }
 
@@ -23,6 +18,12 @@ export class Location {
 
     latitude: number;
     longitude: number;
+}
+
+export class DefaultLocation extends Location {
+    constructor() {
+        super(51.500390404939786, -0.12429392429589825) // BigBen
+    }
 }
 
 export class Promotion implements Unique {
@@ -60,7 +61,7 @@ export class AddressDetails {
     country: string;
     city: string;
     address: string;
-    location: Location = new Location()
+    location: Location = new DefaultLocation()
 }
 
 export class ServiceProvider implements Unique {

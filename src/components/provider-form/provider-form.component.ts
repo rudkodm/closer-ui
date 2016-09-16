@@ -46,16 +46,28 @@ export class ProviderFormComponent {
                     let region = regions[0];
                     let emptyResponse = !region;
                     if (emptyResponse) {
-                        model.control.setErrors({noRegion: "There is no cower region"})
+                        model.control.setErrors({noRegion: "There is no cower region"});
+                        clear();
                     } else {
-                        this.region = region;
-                        this.service.regionId = region.id
+                        assignRegion(region);
                     }
                 })
         };
 
+
         let processErrors = (reason) => {
-            model.control.setErrors({noRegion: reason})
+            model.control.setErrors({noRegion: reason});
+            clear();
+        };
+
+        let clear = () => {
+            this.region = new Region();
+            this.service.regionId = undefined;
+        };
+
+        let assignRegion = (region: Region) => {
+            this.region = region;
+            this.service.regionId = region.id
         };
 
         getLocationOfAddress(address)
@@ -69,7 +81,6 @@ export class ProviderFormComponent {
     }
 
     hide() {
-        this.map.triggerResize();
-        this.shown = false;
+        this.shown = false
     }
 }

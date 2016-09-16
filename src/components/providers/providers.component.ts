@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from "@angular/core";
-import {ServiceProvider, Region} from "../../shared/model";
+import {ServiceProvider, Region, DefaultLocation} from "../../shared/model";
 import {ModalComponent} from "ng2-bs4-modal/ng2-bs4-modal";
 import {ProvidersService} from "../../shared/services/src/providers.service";
 import {RegionsService} from "../../shared/services/src/regions.service";
@@ -91,6 +91,6 @@ export class ProvidersComponent implements OnInit {
         this.isAddNewOpt = false;
         this.service = new ServiceProvider();
         this.region = new Region();
-        this.form.hide()
+        this.form.hide();
     }
 }

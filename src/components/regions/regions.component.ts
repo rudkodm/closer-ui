@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {RegionsService} from '../../shared/services/src/regions.service'
 import {ModalComponent} from 'ng2-bs4-modal/ng2-bs4-modal'
-import {Region, Zone} from "../../shared/model";
+import {Region, Zone, DefaultLocation} from "../../shared/model";
 import {Utils} from "../../shared/helpers/response.helpers";
 import {RegionFormComponent} from "../region-form/region-form.component";
 
@@ -91,8 +91,8 @@ export class RegionsComponent implements OnInit {
 
     private defaultRegion(): Region {
         let region = new Region();
-        // Set BigBen as a default. Later User IP can be used
-        region.zone = new Zone(51.500390404939786, -0.12429392429589825, 50);
+        region.zone = new Zone();
+        region.zone.radius = 50;
         return region;
     }
 }
