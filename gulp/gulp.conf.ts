@@ -13,7 +13,7 @@ export const SHIMS_DEPENDENCIES: string[] = [
     'node_modules/es6-shim/es6-shim.min.js',
     'node_modules/systemjs/dist/system-polyfills.js',
     'node_modules/reflect-metadata/Reflect.js',
-    'node_modules/zone.js/dist/zone.js',
+    'node_modules/zone.js/dist/zone.js'
 ];
 /**
  * @constant {string[]} Constant containing all path to libraries dependencies we want in the project.

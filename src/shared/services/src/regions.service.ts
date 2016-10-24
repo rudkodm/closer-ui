@@ -1,14 +1,17 @@
 import {Injectable} from '@angular/core';
-import {Http, Headers} from '@angular/http';
+import {Headers} from '@angular/http';
 import {Region, Location} from '../../model'
 
 import 'rxjs/add/operator/toPromise';
 import {AppConfiguration} from "../../../config";
+import {AuthHttp} from "angular2-jwt";
 
 @Injectable()
 export class RegionsService {
-    constructor(private http:Http, private conf:AppConfiguration) {
+
+    constructor(private http:AuthHttp, private conf:AppConfiguration) {
     }
+
     getRegions():Promise<Region[]> {
         return this.http.get(this.conf.regionsURL())
             .toPromise()

@@ -1,14 +1,15 @@
 import {Injectable} from '@angular/core';
-import {Http, Headers} from '@angular/http';
+import {Headers} from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 import {AppConfiguration} from "../../../config";
 import {Promotion} from "../../model";
+import {AuthHttp} from "angular2-jwt";
 
 @Injectable()
 export class PromotionsService {
 
-    constructor(private http: Http, private conf: AppConfiguration) {
+    constructor(private http: AuthHttp, private conf: AppConfiguration) {
     }
 
     getPromotions():Promise<Promotion[]> {

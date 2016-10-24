@@ -8,7 +8,6 @@ export class Utils {
         arr.splice(index, 1)
     }
 
-
     public static replaceWith<T extends Unique>(arr: T[], o: T) {
         let index = this.findPosition(arr, o);
         arr.splice(index, 1, o);

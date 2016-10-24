@@ -1,14 +1,15 @@
-import {Injectable} from '@angular/core';
+import {Injectable} from "@angular/core";
 
 @Injectable()
 export class AppConfiguration {
 
     env:string;
+    origin: string;
 
     constructor() {
         this.env = window.location.hostname;
+        this.origin = window.location.origin;
     }
-
 
     regionsURL = () => {
         return this.url('api/regions')
@@ -52,7 +53,18 @@ export class AppConfiguration {
 
     geoApiURL = (address: string) => {
         return `https://maps.googleapis.com/maps/api/geocode/json?&address=${address}`;
+    };
+
+
+    getCallbackUrl() {
+        return `${this.origin}/login`
     }
+
+
+    authClientId = 'hQH2fGLBMyM6XrDE6EtSNIZ0iQXGuv4t';
+    authDomain = 'rudko.eu.auth0.com';
+    googleApiKey: 'AIzaSyAY9RV-fNK6JDqNZpi97TLQaKy9xhCa4ZA'
+
 
 
     /**
@@ -79,4 +91,6 @@ export class AppConfiguration {
     private url(resource:string) {
         return this.getApiHost() + resource;
     }
+
+
 }
