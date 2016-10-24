@@ -39,12 +39,20 @@ export class AppConfiguration {
         return this.url(`api/providers/${id}`);
     };
 
+    providerByProfileIdURL = (id: string) => {
+        return this.url(`api/providers/q?profileId=${id}`);
+    };
+
     promotionsOfRegionURL = (id: string) => {
         return this.url(`api/regions/${id}/promotions`);
     };
 
     promotionsURL = () => {
         return this.url('api/promotions')
+    };
+
+    promotionsByServiceIdURL = (id: string) => {
+        return this.url(`api/promotions/q?serviceId=${id}`)
     };
 
     promotionByIdURL = (id: string) => {
@@ -63,7 +71,6 @@ export class AppConfiguration {
 
     authClientId = 'hQH2fGLBMyM6XrDE6EtSNIZ0iQXGuv4t';
     authDomain = 'rudko.eu.auth0.com';
-    googleApiKey: 'AIzaSyAY9RV-fNK6JDqNZpi97TLQaKy9xhCa4ZA'
 
 
 

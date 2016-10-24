@@ -35,6 +35,7 @@ import {StorageService} from "../../shared/services/src/storage.service";
 import {LoginComponent} from "../login/login.component";
 import {guardsProviders} from "../../shared/guards/auth.guard";
 import {ProviderInfoComponent} from "../provider-info/provider-info.component";
+import {UserPromotionsComponent} from "../user-promotions/user-promotions.component";
 
 @NgModule({
     imports: [
@@ -45,7 +46,7 @@ import {ProviderInfoComponent} from "../provider-info/provider-info.component";
         ModalModule,
         Ng2DatetimePickerModule,
         AgmCoreModule.forRoot({
-            apiKey: new AppConfiguration().googleApiKey
+            apiKey: 'AIzaSyCHrWJHJiI5gJkyCMnQTh3rLCxUgeLpzxk'
         }),
         routing
     ],
@@ -60,7 +61,8 @@ import {ProviderInfoComponent} from "../provider-info/provider-info.component";
         RegionFormComponent,
         PromotionFormComponent,
         LoginComponent,
-        ProviderInfoComponent
+        ProviderInfoComponent,
+        UserPromotionsComponent
     ],
     providers: [
         AppConfiguration,

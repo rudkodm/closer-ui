@@ -24,6 +24,11 @@ export class PromotionsService {
             .then(response => response.json())
     }
 
+    getPromotionsByServiceId(id:string):Promise<Promotion[]> {
+        return this.http.get(this.conf.promotionsByServiceIdURL(id))
+            .toPromise()
+            .then(response => response.json())
+    }
 
     update(promotion:Promotion): Promise<Promotion> {
         let headers = new Headers({'Content-Type': 'application/json'});

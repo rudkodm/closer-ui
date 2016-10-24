@@ -22,6 +22,11 @@ export class ProvidersService {
             .then(response => response.json())
     }
 
+    getServiceProviderByProfileId(id:string):Promise<ServiceProvider> {
+        return this.http.get(this.conf.providerByProfileIdURL(id))
+            .toPromise()
+            .then(response => response.json())
+    }
 
     update(ServiceProvider:ServiceProvider): Promise<ServiceProvider> {
         let headers = new Headers({'Content-Type': 'application/json'});

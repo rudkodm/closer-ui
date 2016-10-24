@@ -10,9 +10,12 @@ export class AuthService {
     private lock: any;
     private userProfile: any;
     private profileDataObtained: EventEmitter<any> = new EventEmitter();
-
-    private widgetConfig = {
-        callbackURL: this.config.getCallbackUrl(),
+    private authOptions = {
+        auth: {
+            responseType: 'token',
+            redirectUrl: this.config.getCallbackUrl(),
+            redirect: true,
+        },
         languageDictionary: {
             title: "Admin Tool"
         }
@@ -22,7 +25,7 @@ export class AuthService {
         this.lock = new Auth0Lock(
             this.config.authClientId,
             this.config.authDomain,
-            this.widgetConfig
+            this.authOptions
         );
         this.handleOnAuthenticateEvent();
         this.userProfile = this.storage.getProfile();
@@ -36,7 +39,6 @@ export class AuthService {
                     return;
                 }
                 this.userProfile = profile;
-                console.log(profile);
                 this.storage.saveIdToken(authResult.idToken);
                 this.storage.saveUserProfileId(profile.user_id);
                 this.storage.saveProfile(profile);
@@ -77,7 +79,6 @@ export class AuthService {
     }
 
     public logout() {
-        this.storage.removeProfile();
-        this.storage.removeIdToken();
+        this.storage.clerStorage();
     };
 }

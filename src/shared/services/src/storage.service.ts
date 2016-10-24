@@ -8,26 +8,37 @@ export class StorageService {
     private storedProfileKey = "profile";
     private storedIdKey = "id_token";
     private profileId = "profileId";
+    private providerId = "providerId";
 
-    saveIdToken(idToken: string) {
-        localStorage.setItem(this.storedIdKey, idToken);
+
+    saveProviderId(providerId: string) {
+        localStorage.setItem(this.providerId, providerId);
+    }
+
+    getProviderId() : string {
+        return localStorage.getItem(this.providerId);
+    }
+
+
+    saveUserProfileId(profileId: string) {
+        localStorage.setItem(this.profileId, profileId);
     }
 
     getUserProfileId() : string {
          return localStorage.getItem(this.profileId);
     }
 
-    saveUserProfileId(providerId: string) {
-        localStorage.setItem(this.profileId, providerId);
+
+
+    saveIdToken(idToken: string) {
+        localStorage.setItem(this.storedIdKey, idToken);
     }
 
     getIdToken() : string {
         return localStorage.getItem(this.storedIdKey);
     }
 
-    removeIdToken() {
-        localStorage.removeItem(this.storedIdKey)
-    }
+
 
     saveProfile(profile: any) {
         localStorage.setItem(this.storedProfileKey, JSON.stringify(profile));
@@ -40,7 +51,7 @@ export class StorageService {
         } else {}
     }
 
-    removeProfile() {
-        localStorage.removeItem(this.storedProfileKey)
+    clerStorage() {
+        localStorage.clear()
     }
 }
