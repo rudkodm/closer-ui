@@ -51,7 +51,7 @@ export class StorageService {
         } else {}
     }
 
-    clerStorage() {
+    clearStorage() {
         localStorage.clear()
     }
 }
