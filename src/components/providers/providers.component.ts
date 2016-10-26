@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from "@angular/core";
-import {ServiceProvider, Region, DefaultLocation} from "../../shared/model";
+import {ServiceProvider, Region} from "../../shared/model";
 import {ModalComponent} from "ng2-bs4-modal/ng2-bs4-modal";
 import {ProvidersService} from "../../shared/services/src/providers.service";
 import {RegionsService} from "../../shared/services/src/regions.service";
