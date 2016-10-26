@@ -2,6 +2,7 @@ import {Injectable, EventEmitter} from '@angular/core';
 import { tokenNotExpired } from 'angular2-jwt';
 import {AppConfiguration} from "../../../config";
 import {StorageService} from "./storage.service";
+import {Router} from "@angular/router";
 declare var Auth0Lock: any;
 
 @Injectable()
@@ -21,7 +22,10 @@ export class AuthService {
         }
     };
 
-    constructor(private config: AppConfiguration, private storage: StorageService) {
+    constructor(private config: AppConfiguration,
+                private storage: StorageService,
+                private router: Router) {
+
         this.lock = new Auth0Lock(
             this.config.authClientId,
             this.config.authDomain,
@@ -79,6 +83,8 @@ export class AuthService {
     }
 
     public logout() {
-        this.storage.clerStorage();
+        this.storage.clearStorage();
+        this.userProfile = null;
+        this.router.navigate(["login"]);
     };
 }
