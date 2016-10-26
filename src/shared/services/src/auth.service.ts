@@ -42,6 +42,7 @@ export class AuthService {
                     alert(error);
                     return;
                 }
+                console.log(profile); // TODO: Not to forget to remove later
                 this.userProfile = profile;
                 this.storage.saveIdToken(authResult.idToken);
                 this.storage.saveUserProfileId(profile.user_id);
@@ -63,8 +64,21 @@ export class AuthService {
         return tokenNotExpired();
     };
 
+    public isNotVerified(): boolean {
+        return !this.isVerified()
+    };
+
+    public isVerified(): boolean {
+        return this.userProfile
+        && this.userProfile.email_verified
+    };
+
     public onAuthenticated(handler: any) {
         this.profileDataObtained.subscribe(handler)
+    };
+
+    public onAuthenticationError(handler: any) {
+        this.lock.on('authorization_error', handler)
     };
 
     public isBusinessUser(){
@@ -87,4 +101,5 @@ export class AuthService {
         this.userProfile = null;
         this.router.navigate(["login"]);
     };
+
 }
