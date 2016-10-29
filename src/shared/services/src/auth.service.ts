@@ -42,7 +42,6 @@ export class AuthService {
                     alert(error);
                     return;
                 }
-                console.log(profile); // TODO: Not to forget to remove later
                 this.userProfile = profile;
                 this.storage.saveIdToken(authResult.idToken);
                 this.storage.saveUserProfileId(profile.user_id);

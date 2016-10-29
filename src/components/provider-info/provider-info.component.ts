@@ -14,85 +14,49 @@ import {RegionsService} from "../../shared/services/src/regions.service";
 export class ProviderInfoComponent implements OnInit{
     service: ServiceProvider = new ServiceProvider();
     region: Region = new Region();
-    error: any;
+    private profileId;
+    private error: any;
 
     constructor(
         private providerService: ProvidersService,
         private regionsService: RegionsService,
-        private locationService: LocationService,
         private storage: StorageService
     ){}
 
     ngOnInit(): void {
-        let profileId = this.storage.getUserProfileId();
-        this.providerService.getServiceProviderByProfileId(profileId)
+        this.profileId = this.storage.getUserProfileId();
+        this.providerService.getServiceProviderByProfileId(this.profileId)
             .then(service => {
-                this.service = service;
-                this.storage.saveProviderId(service.id);
+                if(service) {
+                    this.service = service;
+                    this.storage.saveProviderId(service.id);
+                }
+                return service;
             })
-            .then(() => this.regionsService.getRegionById(this.service.regionId))
-            .then(region => this.region = region)
+            .then((service) => this.regionsService.getRegionById(service.regionId))
+            .then(region => {
+                if(region) this.region = region
+            })
             .catch(error => this.error = error)
 
     }
 
-    processLocation(model: NgModel) {
-        let address: string = model.control.value;
-
-        let getLocationOfAddress = (str) => {
-            return this.locationService
-                .getLocationOf(str)
-                .then(location => {
-                    this.service.addressDetails.location = location;
-                    this.service.addressDetails.address = address;
-                    return location;
-                })
-        };
-
-        let findCoverRegion = (loc) => {
-            return this.regionsService
-                .getCoverRegion(loc)
-                .then(regions=> {
-                    let region = regions[0];
-                    let emptyResponse = !region;
-                    if (emptyResponse) {
-                        model.control.setErrors({noRegion: "There is no cower region"});
-                        clear();
-                    } else {
-                        assignRegion(region);
-                    }
-                })
-        };
-
-
-        let processErrors = (reason) => {
-            model.control.setErrors({noRegion: reason});
-            clear();
-        };
-
-        let clear = () => {
-            this.region = new Region();
-            this.service.regionId = undefined;
-        };
-
-        let assignRegion = (region: Region) => {
-            this.region = region;
-            this.service.regionId = region.id
-        };
-
-        getLocationOfAddress(address)
-            .then(findCoverRegion)
-            .catch(processErrors);
-    }
-
     doSave() {
+        this.service.profileId = this.profileId;
         let saveOrUpdate = () => {
-            if(this.service.id) return this.providerService.update(this.service);
-            else return this.providerService.save(this.service);
+            if(!!this.service.id)
+                return this.providerService.update(this.service);
+            else
+                return this.providerService
+                    .save(this.service)
+                    .then((service) => {
+                        if(service) {
+                            this.service = service;
+                            this.storage.saveProviderId(service.id)
+                        }
+                        return service;
+                    });
         };
         saveOrUpdate().catch( error => this.error = error)
     }
-
-
-
 }

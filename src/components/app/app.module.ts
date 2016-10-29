@@ -36,6 +36,8 @@ import {LoginComponent} from "../login/login.component";
 import {guardsProviders} from "../../shared/guards/auth.guard";
 import {ProviderInfoComponent} from "../provider-info/provider-info.component";
 import {UserPromotionsComponent} from "../user-promotions/user-promotions.component";
+import {ErrorComponent} from "../error/error.component";
+import {ErrorsService} from "../../shared/services/src/errors.service";
 
 @NgModule({
     imports: [
@@ -62,7 +64,8 @@ import {UserPromotionsComponent} from "../user-promotions/user-promotions.compon
         PromotionFormComponent,
         LoginComponent,
         ProviderInfoComponent,
-        UserPromotionsComponent
+        UserPromotionsComponent,
+        ErrorComponent
     ],
     providers: [
         AppConfiguration,
@@ -74,7 +77,8 @@ import {UserPromotionsComponent} from "../user-promotions/user-promotions.compon
         AuthService,
         AUTH_PROVIDERS,
         guardsProviders,
-        StorageService
+        StorageService,
+        ErrorsService
     ],
     bootstrap: [AppComponent]
 })

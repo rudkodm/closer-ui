@@ -4,17 +4,18 @@ import { Routes, RouterModule } from '@angular/router';
 import {RegionsComponent} from "../regions/regions.component";
 import {PromotionsComponent} from "../promotions/promotions.component";
 import {ProvidersComponent} from "../providers/providers.component";
-import {AuthenticatedOnly, AdminOnly} from "../../shared/guards/auth.guard";
+import {AuthenticatedOnly, AdminOnly, ProviderDataWasAdded} from "../../shared/guards/auth.guard";
 import {LoginComponent} from "../login/login.component";
 import {ProviderInfoComponent} from "../provider-info/provider-info.component";
 import {UserPromotionsComponent} from "../user-promotions/user-promotions.component";
+import {ErrorComponent} from "../error/error.component";
 
 
 const appRoutes: Routes = [
     {path: 'login',             component: LoginComponent},
-    {path: 'error',             component: PromotionsComponent},
+    {path: 'error',             component: ErrorComponent},
     {path: 'provider-info',     component: ProviderInfoComponent, canActivate: [AuthenticatedOnly]},
-    {path: 'users-promotions',  component: UserPromotionsComponent, canActivate: [AuthenticatedOnly]},
+    {path: 'users-promotions',  component: UserPromotionsComponent, canActivate: [AuthenticatedOnly, ProviderDataWasAdded]},
     {path: 'regions',           component: RegionsComponent, canActivate: [AuthenticatedOnly, AdminOnly]},
     {path: 'providers',         component: ProvidersComponent, canActivate: [AuthenticatedOnly, AdminOnly]},
     {path: 'promotions',        component: PromotionsComponent, canActivate: [AuthenticatedOnly, AdminOnly]},

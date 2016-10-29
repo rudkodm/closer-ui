@@ -1,32 +1,64 @@
-import {Component, ViewChild, OnInit} from "@angular/core";
+import {Component} from "@angular/core";
 import {AuthService} from "../../shared/services/src/auth.service";
 import {Router} from "@angular/router";
-import {ModalComponent} from "ng2-bs4-modal/components/modal";
+import {StorageService} from "../../shared/services/src/storage.service";
+import {ErrorsService} from "../../shared/services/src/errors.service";
 
 @Component({
     selector: 'companies',
     templateUrl: 'components/login/login.component.html',
     styleUrls: ['components/login/login.component.css']
 })
-export class LoginComponent{
-    @ViewChild("infoModal") infoModal: ModalComponent;
-    public error: any;
+export class LoginComponent {
 
-    constructor(private auth: AuthService, private router: Router) {
+    constructor(private auth: AuthService,
+                private router: Router,
+                private storage: StorageService,
+                private errors: ErrorsService
+    ) {
+        this.checkLogout();
+        this.handleUserAuthentication();
+        this.handleAuthenticationError();
+    }
+
+
+    private checkLogout() {
+        let notAuthenticated = !this.auth.authenticated();
+        let sessionDataWasNotRemoved = !!this.storage.getIdToken();
+        if(notAuthenticated && sessionDataWasNotRemoved) this.auth.logout();
+    }
+
+    private handleUserAuthentication() {
         if (this.auth.authenticated()) {
             this.applyNavigationRules()
         }
+
         this.auth.onAuthenticated(() => {
-            this.applyNavigationRules();
+            this.applyNavigationRules()
         });
+    }
+
+    private handleAuthenticationError() {
         this.auth.onAuthenticationError((e) => {
-            this.error = e;
-            this.infoModal.open();
+            this.router
+                .navigate(['error'])
+                .then(() => this.errors.addError({
+                    title: "Authorisation Error",
+                    msg: e.error_description
+                }));
         })
     }
 
     private applyNavigationRules() {
-        if (this.auth.isAdmin()) this.router.navigate(['regions']);
-        if (this.auth.isBusinessUser()) this.router.navigate(['provider-info']);
+        if (this.auth.isAdmin()) this.toAdminStartPage();
+        if (this.auth.isBusinessUser()) this.toUserStartPage();
+    };
+
+    private toUserStartPage() {
+        this.router.navigate(['provider-info']);
+    }
+
+    private toAdminStartPage() {
+        this.router.navigate(['regions']);
     }
 }

@@ -1,12 +1,22 @@
-import {Component, OnInit} from "@angular/core";
-import {AuthService} from "../../shared/services/src/auth.service";
-import {Router} from "@angular/router";
+import {Component, OnDestroy} from "@angular/core";
+import {ErrorsService, ErrorMsg} from "../../shared/services/src/errors.service";
+import {Subscription} from "rxjs/Subscription";
+import {Location} from "@angular/common";
 
 @Component({
     selector: 'companies',
     templateUrl: 'components/error/error.component.html',
     styleUrls: ['components/error/error.component.css']
 })
-export class ErrorComponent {
+export class ErrorComponent implements OnDestroy{
+    error: ErrorMsg;
+    private subscription: Subscription;
 
+    constructor(private location: Location, private errors: ErrorsService) {
+        this.subscription = errors.onError((e) => this.error = e)
+    }
+
+    ngOnDestroy(): void {
+        this.subscription.unsubscribe();
+    }
 }

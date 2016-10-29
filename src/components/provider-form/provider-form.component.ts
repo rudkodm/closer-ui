@@ -1,4 +1,4 @@
-import {Component, Input, ViewChild} from '@angular/core';
+import {Component, Input, ViewChild, OnInit} from '@angular/core';
 import {NgForm, NgModel} from '@angular/forms';
 import {ServiceProvider, Region} from "../../shared/model";
 import {RegionsService} from "../../shared/services/src/regions.service";
@@ -10,7 +10,7 @@ import {SebmGoogleMap} from 'angular2-google-maps/core';
     templateUrl: 'components/provider-form/provider-form.component.html',
     styleUrls: ['components/provider-form/provider-form.component.css']
 })
-export class ProviderFormComponent {
+export class ProviderFormComponent implements OnInit{
     @Input('selectedService') service: ServiceProvider;
     @Input('selectedRegion') region: Region;
     @ViewChild('form') form: NgForm;
@@ -21,10 +21,13 @@ export class ProviderFormComponent {
                 private locationService: LocationService) {
     }
 
+    ngOnInit(): void {
+        this.show();
+    }
+
     valid() {
         return this.form.form.valid;
     }
-
 
     processLocation(model: NgModel) {
         let address: string = model.control.value;
@@ -56,6 +59,7 @@ export class ProviderFormComponent {
 
 
         let processErrors = (reason) => {
+            console.error(reason);
             model.control.setErrors({noRegion: reason});
             clear();
         };
