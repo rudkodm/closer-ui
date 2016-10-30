@@ -1,7 +1,7 @@
-import {ErrorComponent} from "./error.component";
+import {AlertsComponent} from "./alert.component";
 import {Component} from "@angular/core";
 @Component({
-    selector: 'test-companies',
+    selector: 'test-alerts',
     template: '<sd-error></sd-error>'
 })
 class TestErrorComponent {}

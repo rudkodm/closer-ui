@@ -21,7 +21,7 @@ import {PromotionsComponent} from "../promotions/promotions.component";
 import {ProvidersComponent} from "../providers/providers.component";
 import {CompaniesComponent} from "../companies/companies.component";
 
-import {AppConfiguration} from "../../config";
+import {AppConfiguration, GOOGLE_API_KEY} from "../../config";
 import {RegionsService} from "../../shared/services/src/regions.service";
 import {PromotionsService} from "../../shared/services/src/promotions.service";
 import {CompaniesService} from "../../shared/services/src/companies.service";
@@ -36,8 +36,8 @@ import {LoginComponent} from "../login/login.component";
 import {guardsProviders} from "../../shared/guards/auth.guard";
 import {ProviderInfoComponent} from "../provider-info/provider-info.component";
 import {UserPromotionsComponent} from "../user-promotions/user-promotions.component";
-import {ErrorComponent} from "../error/error.component";
-import {ErrorsService} from "../../shared/services/src/errors.service";
+import {AlertsComponent} from "../alert/alert.component";
+import {AlertsService} from "../../shared/services/src/alert.service";
 
 @NgModule({
     imports: [
@@ -48,7 +48,7 @@ import {ErrorsService} from "../../shared/services/src/errors.service";
         ModalModule,
         Ng2DatetimePickerModule,
         AgmCoreModule.forRoot({
-            apiKey: 'AIzaSyCHrWJHJiI5gJkyCMnQTh3rLCxUgeLpzxk'
+            apiKey: GOOGLE_API_KEY
         }),
         routing
     ],
@@ -65,7 +65,7 @@ import {ErrorsService} from "../../shared/services/src/errors.service";
         LoginComponent,
         ProviderInfoComponent,
         UserPromotionsComponent,
-        ErrorComponent
+        AlertsComponent
     ],
     providers: [
         AppConfiguration,
@@ -78,7 +78,7 @@ import {ErrorsService} from "../../shared/services/src/errors.service";
         AUTH_PROVIDERS,
         guardsProviders,
         StorageService,
-        ErrorsService
+        AlertsService
     ],
     bootstrap: [AppComponent]
 })

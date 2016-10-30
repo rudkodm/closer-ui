@@ -68,26 +68,12 @@ export class AppConfiguration {
         return `${this.origin}/login`
     }
 
-
-    authClientId = 'hQH2fGLBMyM6XrDE6EtSNIZ0iQXGuv4t';
-    authDomain = 'rudko.eu.auth0.com';
-
-
-
     /**
      * Resolve HOST + PORT part of the URL
      * @returns {string}
      */
     private getApiHost():string {
-        switch (this.env) {
-            case'localhost':
-                return 'http://localhost:9000/';
-            case'young-hollows-98001.herokuapp.com':
-            case'mysterious-chamber-98748.herokuapp.com':
-                return 'https://dry-bastion-13599.herokuapp.com/';
-            default:
-                return 'http://localhost:9000/';
-        }
+        return API_HOST;
     }
 
     /**
@@ -96,8 +82,13 @@ export class AppConfiguration {
      * @returns {string}
      */
     private url(resource:string) {
-        return this.getApiHost() + resource;
+        return `${this.getApiHost()}/${resource}`;
     }
 
 
 }
+
+export const API_HOST = process.env.API_HOST || 'http://localhost:9000';
+export const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY;
+export const AUTH_CLIENT_ID = process.env.AUTH_CLIENT_ID;
+export const AUTH_DOMAIN = process.env.AUTH_DOMAIN;

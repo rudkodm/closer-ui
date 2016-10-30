@@ -1,0 +1,18 @@
+<div class="card" id="message">
+
+    <div class="card-block">
+        <div *ngIf=" alert?.severity == 'error' " class="alert alert-danger" role="alert">
+            <h4 class="alert-heading">{{alert?.title}}</h4>
+            <p>{{alert?.msg}}</p>
+        </div>
+
+        <div *ngIf=" alert?.severity == 'info' " class="alert alert-info" role="alert">
+            <h4 class="alert-heading">{{alert?.title}}</h4>
+            <p>{{alert?.msg}}</p>
+        </div>
+    </div>
+
+    <div class="card-footer text-muted text-lg-right">
+        <button type="submit" class="btn btn-secondary" (click)="location.back()">Back</button>
+    </div>
+</div>

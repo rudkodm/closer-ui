@@ -8,12 +8,12 @@ import {AuthenticatedOnly, AdminOnly, ProviderDataWasAdded} from "../../shared/g
 import {LoginComponent} from "../login/login.component";
 import {ProviderInfoComponent} from "../provider-info/provider-info.component";
 import {UserPromotionsComponent} from "../user-promotions/user-promotions.component";
-import {ErrorComponent} from "../error/error.component";
+import {AlertsComponent} from "../alert/alert.component";
 
 
 const appRoutes: Routes = [
     {path: 'login',             component: LoginComponent},
-    {path: 'error',             component: ErrorComponent},
+    {path: 'alert',             component: AlertsComponent},
     {path: 'provider-info',     component: ProviderInfoComponent, canActivate: [AuthenticatedOnly]},
     {path: 'users-promotions',  component: UserPromotionsComponent, canActivate: [AuthenticatedOnly, ProviderDataWasAdded]},
     {path: 'regions',           component: RegionsComponent, canActivate: [AuthenticatedOnly, AdminOnly]},

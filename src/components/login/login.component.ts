@@ -2,7 +2,7 @@ import {Component} from "@angular/core";
 import {AuthService} from "../../shared/services/src/auth.service";
 import {Router} from "@angular/router";
 import {StorageService} from "../../shared/services/src/storage.service";
-import {ErrorsService} from "../../shared/services/src/errors.service";
+import {AlertsService} from "../../shared/services/src/alert.service";
 
 @Component({
     selector: 'companies',
@@ -14,7 +14,7 @@ export class LoginComponent {
     constructor(private auth: AuthService,
                 private router: Router,
                 private storage: StorageService,
-                private errors: ErrorsService
+                private messageService: AlertsService
     ) {
         this.checkLogout();
         this.handleUserAuthentication();
@@ -41,9 +41,10 @@ export class LoginComponent {
     private handleAuthenticationError() {
         this.auth.onAuthenticationError((e) => {
             this.router
-                .navigate(['error'])
-                .then(() => this.errors.addError({
-                    title: "Authorisation Error",
+                .navigate(['alert'])
+                .then(() => this.messageService.addAlert({
+                    severity: 'info',
+                    title: "Verification Required",
                     msg: e.error_description
                 }));
         })

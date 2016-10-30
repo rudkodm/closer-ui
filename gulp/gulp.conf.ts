@@ -25,8 +25,10 @@ export const LIBS_DEPENDENCIES: string[] = [
 ];
 
 export const BOOT_DEPENDENCIES: string[] = [
+    'env.local.js',
     'systemjs.config.js',
     'systemjs.boot.js'
+
 ];
 
 export const SYSJS_DEPENDENCIES: string[] = [
