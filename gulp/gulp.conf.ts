@@ -24,8 +24,10 @@ export const LIBS_DEPENDENCIES: string[] = [
     'node_modules/bootstrap/dist/js/bootstrap.min.js'
 ];
 
+export const ENV_VARIABLES: string =  'env.js';
+
 export const BOOT_DEPENDENCIES: string[] = [
-    'env.local.js',
+    ENV_VARIABLES,
     'systemjs.config.js',
     'systemjs.boot.js'
 

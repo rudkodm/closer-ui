@@ -3,12 +3,21 @@ import * as gulpLoadPlugins from 'gulp-load-plugins';
 import {getBrowserSync} from '../browsersync';
 import {
     DEV_PATH, PROD_PATH, INDEX, SHIMS_DEPENDENCIES, LIBS_DEPENDENCIES, SHIMS, LIBS, BOOT_DEPENDENCIES,
-    SYSJS_DEPENDENCIES, BOOT, BUNDLE
+    SYSJS_DEPENDENCIES, BOOT, BUNDLE, ENV_VARIABLES
 } from '../gulp.conf';
 
 const series = require('stream-series');
+const replace = require('gulp-replace');
 const plugins = <any>gulpLoadPlugins();
 const bs = getBrowserSync();
+
+const env_script = `
+    global.process.env = {
+        API_HOST: 'http://localhost:9000',
+        GOOGLE_API_KEY: 'AIzaSyCHrWJHJiI5gJkyCMnQTh3rLCxUgeLpzxk',
+        AUTH_CLIENT_ID: 'hQH2fGLBMyM6XrDE6EtSNIZ0iQXGuv4t',
+        AUTH_DOMAIN: 'rudko.eu.auth0.com'
+    };`;
 
 /**
  * This function injects :
@@ -17,6 +26,10 @@ const bs = getBrowserSync();
  * @param {string} destinationDirectory - The destination directory.
  */
 function inject(destinationDirectory: string, bootSrc: any) {
+    gulp.src(ENV_VARIABLES, {cwd: destinationDirectory})
+        .pipe(replace('<!-- env -->', env_script))
+        .pipe(gulp.dest(destinationDirectory))
+
     return gulp.src(INDEX, {cwd: destinationDirectory})
         .pipe(plugins.inject(gulp.src(SHIMS_DEPENDENCIES, {read: false}), {name: SHIMS}))
         .pipe(plugins.inject(gulp.src(LIBS_DEPENDENCIES, {read: false}), {name: LIBS}))
@@ -47,5 +60,5 @@ function injectProd() {
 
 ///////////////////// Inject Tasks /////////////////////
 
-gulp.task('inject:dev', injectDev);
-gulp.task('inject:prod', injectProd);
+gulp.task('str:dev', injectDev);
+gulp.task('str:prod', injectProd);
