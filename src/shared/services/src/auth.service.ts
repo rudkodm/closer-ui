@@ -12,8 +12,6 @@ export class AuthService {
     private userProfile: any;
     private profileDataObtained: EventEmitter<any> = new EventEmitter();
     private authOptions = {
-        allowedConnections: ['auth0'],
-        avatar: false,
         auth: {
             responseType: 'token',
             redirectUrl: this.config.getCallbackUrl(),

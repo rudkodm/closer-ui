@@ -24,17 +24,23 @@ export const LIBS_DEPENDENCIES: string[] = [
     'node_modules/bootstrap/dist/js/bootstrap.min.js'
 ];
 
+export const SYSJS_DEPENDENCIES: string[] = [
+    'node_modules/systemjs/dist/system.src.js'
+];
+
 export const ENV_VARIABLES: string =  'env.js';
 
-export const BOOT_DEPENDENCIES: string[] = [
+export const BUNDLE: string = 'bundle.js';
+
+export const DEV_BOOT_DEPENDENCIES: string[] = [
     ENV_VARIABLES,
     'systemjs.config.js',
     'systemjs.boot.js'
-
 ];
 
-export const SYSJS_DEPENDENCIES: string[] = [
-    'node_modules/systemjs/dist/system.src.js'
+export const PROD_BOOT_DEPENDENCIES: string[] = [
+    ENV_VARIABLES,
+    BUNDLE
 ];
 
 /**
@@ -72,10 +78,7 @@ export const SPEC_FILES: string = 'src/**/*.spec.ts';
  */
 export const INDEX: string = 'index.html';
 
-/**
- * @constant {string} The name of the bundle file.
- */
-export const BUNDLE: string = 'bundle.js';
+
 
 /**
  * @constant {string} The name of the main script.
@@ -96,6 +99,11 @@ export const LIBS: string = 'libs';
  * @constant {string} The shimd tag name.
  */
 export const SHIMS: string = 'shims';
+
+/**
+* @constant {string} The environment tag name.
+*/
+export const ENV: string = '<!-- env -->';
 
 /**
  * @constant {string} The run scripts tag name.

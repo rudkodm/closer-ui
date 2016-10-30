@@ -2,7 +2,7 @@ import * as gulp from 'gulp';
 import * as runSequence from 'run-sequence';
 import * as requireDir from 'require-dir';
 
-
+require('dotenv').config()
 requireDir('./gulp/tasks');
 
 gulp.task('serve:dev', callback =>

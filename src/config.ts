@@ -1,4 +1,5 @@
 import {Injectable} from "@angular/core";
+declare let env: any;
 
 @Injectable()
 export class AppConfiguration {
@@ -88,7 +89,7 @@ export class AppConfiguration {
 
 }
 
-export const API_HOST = process.env.API_HOST || 'http://localhost:9000';
-export const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY;
-export const AUTH_CLIENT_ID = process.env.AUTH_CLIENT_ID;
-export const AUTH_DOMAIN = process.env.AUTH_DOMAIN;
+export const API_HOST = env.API_HOST || 'http://localhost:9000';
+export const GOOGLE_API_KEY = env.GOOGLE_API_KEY;
+export const AUTH_CLIENT_ID = env.AUTH_CLIENT_ID;
+export const AUTH_DOMAIN = env.AUTH_DOMAIN;
