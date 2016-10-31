@@ -67,6 +67,7 @@ export class AddressDetails {
 export class ServiceProvider implements Unique {
     id: string;
     regionId: string;
+    profileId: string;
     name: string;
     businessCategory: string;
     registerDetails: PersonDetails = new PersonDetails();

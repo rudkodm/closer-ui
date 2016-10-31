@@ -1,0 +1,8 @@
+<div class="card" id="provider-info">
+    <div class="card-block">
+        <provider-form #form [selectedService]="service" [selectedRegion]="region"></provider-form>
+    </div>
+    <div class="card-footer text-muted text-lg-right">
+        <button type="submit" class="btn btn-secondary" (click)="doSave()" [disabled]="!form.valid()">Save</button>
+    </div>
+</div>

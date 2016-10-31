@@ -1,7 +1,6 @@
-import {Injectable} from '@angular/core';
-import {Http, Headers} from '@angular/http';
-
-import 'rxjs/add/operator/toPromise';
+import {Injectable} from "@angular/core";
+import {Headers, Http} from "@angular/http";
+import "rxjs/add/operator/toPromise";
 import {AppConfiguration} from "../../../config";
 import {Promotion} from "../../model";
 
@@ -23,6 +22,11 @@ export class PromotionsService {
             .then(response => response.json())
     }
 
+    getPromotionsByServiceId(id:string):Promise<Promotion[]> {
+        return this.http.get(this.conf.promotionsByServiceIdURL(id))
+            .toPromise()
+            .then(response => response.json())
+    }
 
     update(promotion:Promotion): Promise<Promotion> {
         let headers = new Headers({'Content-Type': 'application/json'});

@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {AuthService} from "../../shared/services/src/auth.service";
 
 @Component({
     selector: 'header',
@@ -6,4 +7,5 @@ import {Component} from '@angular/core';
     styleUrls: ['components/header/header.component.css']
 })
 export class HeaderComponent {
+    constructor(private auth: AuthService) {}
 }

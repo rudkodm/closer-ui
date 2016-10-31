@@ -1,8 +1,14 @@
 <nav class="navbar navbar-dark bg-inverse">
     <p class="navbar-brand">Admin Tool</p>
     <div class="nav navbar-nav">
-        <a class="nav-item nav-link" href="#" [routerLink]="['/regions']" routerLinkActive="active">Regions</a>
-        <a class="nav-item nav-link" href="#" [routerLink]="['/providers']" routerLinkActive="active">Providers</a>
-        <a class="nav-item nav-link" href="#" [routerLink]="['/promotions']" routerLinkActive="active">Promotions</a>
+        <a *ngIf="auth.isAdmin()" class="nav-item nav-link" href="#" [routerLink]="['/regions']" routerLinkActive="active">Regions</a>
+        <a *ngIf="auth.isAdmin()" class="nav-item nav-link" href="#" [routerLink]="['/providers']" routerLinkActive="active">Providers</a>
+        <a *ngIf="auth.isAdmin()" class="nav-item nav-link" href="#" [routerLink]="['/promotions']" routerLinkActive="active">Promotions</a>
+        <a *ngIf="auth.isBusinessUser()" class="nav-item nav-link" href="#" [routerLink]="['/provider-info']" routerLinkActive="active">Info</a>
+        <a *ngIf="auth.isBusinessUser()" class="nav-item nav-link" href="#" [routerLink]="['/users-promotions']" routerLinkActive="active">Promotions</a>
+    </div>
+    <div class="pull-xs-right">
+        <button class="btn btn-secondary btn-margin" (click)="auth.login()" *ngIf="!auth.authenticated()">Log In</button>
+        <button class="btn btn-secondary btn-margin" (click)="auth.logout()" *ngIf="auth.authenticated()">Log Out</button>
     </div>
 </nav>

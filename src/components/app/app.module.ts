@@ -1,25 +1,27 @@
 import './rxjs-extensions';
 
 
-
-import {NgModule, ModuleWithProviders}      from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule}      from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule}   from '@angular/forms';
 import {HttpModule}    from '@angular/http';
 import {AgmCoreModule} from 'angular2-google-maps/core';
 import {ModalModule} from 'ng2-bs4-modal/ng2-bs4-modal';
-import {Ng2DatetimePickerModule} from 'ng2-datetime-picker';
 
-import {routing}              from './app.routs';
-import {AppComponent}         from './app.component';
+//noinspection TypeScriptCheckImport
+import {Ng2DatetimePickerModule} from 'ng2-datetime-picker';
+import {AUTH_PROVIDERS} from 'angular2-jwt';
+
+import {routing} from './app.routs';
+import {AppComponent} from './app.component';
 import {HeaderComponent} from '../header/header.component';
 import {RegionsComponent} from "../regions/regions.component";
 import {PromotionsComponent} from "../promotions/promotions.component";
 import {ProvidersComponent} from "../providers/providers.component";
 import {CompaniesComponent} from "../companies/companies.component";
 
-import {AppConfiguration} from "../../config";
+import {AppConfiguration, GOOGLE_API_KEY} from "../../config";
 import {RegionsService} from "../../shared/services/src/regions.service";
 import {PromotionsService} from "../../shared/services/src/promotions.service";
 import {CompaniesService} from "../../shared/services/src/companies.service";
@@ -28,6 +30,14 @@ import {LocationService} from "../../shared/services/src/location.service";
 import {ProviderFormComponent} from "../provider-form/provider-form.component";
 import {RegionFormComponent} from "../region-form/region-form.component";
 import {PromotionFormComponent} from "../promotion-form/promotion-form.component";
+import {AuthService} from "../../shared/services/src/auth.service";
+import {StorageService} from "../../shared/services/src/storage.service";
+import {LoginComponent} from "../login/login.component";
+import {guardsProviders} from "../../shared/guards/auth.guard";
+import {ProviderInfoComponent} from "../provider-info/provider-info.component";
+import {UserPromotionsComponent} from "../user-promotions/user-promotions.component";
+import {AlertsComponent} from "../alert/alert.component";
+import {AlertsService} from "../../shared/services/src/alert.service";
 
 @NgModule({
     imports: [
@@ -38,7 +48,7 @@ import {PromotionFormComponent} from "../promotion-form/promotion-form.component
         ModalModule,
         Ng2DatetimePickerModule,
         AgmCoreModule.forRoot({
-            apiKey: 'AIzaSyAY9RV-fNK6JDqNZpi97TLQaKy9xhCa4ZA'
+            apiKey: GOOGLE_API_KEY
         }),
         routing
     ],
@@ -51,7 +61,11 @@ import {PromotionFormComponent} from "../promotion-form/promotion-form.component
         ProvidersComponent,
         ProviderFormComponent,
         RegionFormComponent,
-        PromotionFormComponent
+        PromotionFormComponent,
+        LoginComponent,
+        ProviderInfoComponent,
+        UserPromotionsComponent,
+        AlertsComponent
     ],
     providers: [
         AppConfiguration,
@@ -59,9 +73,15 @@ import {PromotionFormComponent} from "../promotion-form/promotion-form.component
         PromotionsService,
         CompaniesService,
         ProvidersService,
-        LocationService
+        LocationService,
+        AuthService,
+        AUTH_PROVIDERS,
+        guardsProviders,
+        StorageService,
+        AlertsService
     ],
     bootstrap: [AppComponent]
 })
 export class AppModule {
+
 }
