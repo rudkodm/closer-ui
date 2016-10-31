@@ -1,0 +1,16 @@
+@import "../../shared/styles/variables";
+
+.form-group .btn-group {
+  margin-top: 0.2rem;
+}
+
+.sebm-google-map-container {
+  height: 300px;
+}
+
+.info-content {
+  min-height: 100px;
+  text-align: center;
+  padding-top: 40px;
+  color: $info-text-color;
+}

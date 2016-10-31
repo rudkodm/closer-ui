@@ -1,6 +1,6 @@
 import {Injectable, EventEmitter} from '@angular/core';
 import { tokenNotExpired } from 'angular2-jwt';
-import {AppConfiguration} from "../../../config";
+import {AppConfiguration, AUTH_CLIENT_ID, AUTH_DOMAIN} from "../../../config";
 import {StorageService} from "./storage.service";
 import {Router} from "@angular/router";
 declare var Auth0Lock: any;
@@ -25,10 +25,9 @@ export class AuthService {
     constructor(private config: AppConfiguration,
                 private storage: StorageService,
                 private router: Router) {
-
         this.lock = new Auth0Lock(
-            this.config.authClientId,
-            this.config.authDomain,
+            AUTH_CLIENT_ID,
+            AUTH_DOMAIN,
             this.authOptions
         );
         this.handleOnAuthenticateEvent();
@@ -63,8 +62,21 @@ export class AuthService {
         return tokenNotExpired();
     };
 
+    public isNotVerified(): boolean {
+        return !this.isVerified()
+    };
+
+    public isVerified(): boolean {
+        return this.userProfile
+        && this.userProfile.email_verified
+    };
+
     public onAuthenticated(handler: any) {
         this.profileDataObtained.subscribe(handler)
+    };
+
+    public onAuthenticationError(handler: any) {
+        this.lock.on('authorization_error', handler)
     };
 
     public isBusinessUser(){
@@ -87,4 +99,5 @@ export class AuthService {
         this.userProfile = null;
         this.router.navigate(["login"]);
     };
+
 }

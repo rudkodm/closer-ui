@@ -21,7 +21,7 @@ import {PromotionsComponent} from "../promotions/promotions.component";
 import {ProvidersComponent} from "../providers/providers.component";
 import {CompaniesComponent} from "../companies/companies.component";
 
-import {AppConfiguration} from "../../config";
+import {AppConfiguration, GOOGLE_API_KEY} from "../../config";
 import {RegionsService} from "../../shared/services/src/regions.service";
 import {PromotionsService} from "../../shared/services/src/promotions.service";
 import {CompaniesService} from "../../shared/services/src/companies.service";
@@ -36,6 +36,8 @@ import {LoginComponent} from "../login/login.component";
 import {guardsProviders} from "../../shared/guards/auth.guard";
 import {ProviderInfoComponent} from "../provider-info/provider-info.component";
 import {UserPromotionsComponent} from "../user-promotions/user-promotions.component";
+import {AlertsComponent} from "../alert/alert.component";
+import {AlertsService} from "../../shared/services/src/alert.service";
 
 @NgModule({
     imports: [
@@ -46,7 +48,7 @@ import {UserPromotionsComponent} from "../user-promotions/user-promotions.compon
         ModalModule,
         Ng2DatetimePickerModule,
         AgmCoreModule.forRoot({
-            apiKey: 'AIzaSyCHrWJHJiI5gJkyCMnQTh3rLCxUgeLpzxk'
+            apiKey: GOOGLE_API_KEY
         }),
         routing
     ],
@@ -62,7 +64,8 @@ import {UserPromotionsComponent} from "../user-promotions/user-promotions.compon
         PromotionFormComponent,
         LoginComponent,
         ProviderInfoComponent,
-        UserPromotionsComponent
+        UserPromotionsComponent,
+        AlertsComponent
     ],
     providers: [
         AppConfiguration,
@@ -74,7 +77,8 @@ import {UserPromotionsComponent} from "../user-promotions/user-promotions.compon
         AuthService,
         AUTH_PROVIDERS,
         guardsProviders,
-        StorageService
+        StorageService,
+        AlertsService
     ],
     bootstrap: [AppComponent]
 })

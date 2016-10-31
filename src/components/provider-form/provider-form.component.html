@@ -3,15 +3,30 @@
     <div class="form-group row">
         <label for="serviceProviderName" class="col-sm-2 form-control-label">Name</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" id="serviceProviderName" placeholder="Service provider name"
-                   [(ngModel)]="service.name" name="serviceProviderName">
+            <input required type="text" class="form-control" id="serviceProviderName"
+                   placeholder="Service provider name"
+                   [(ngModel)]="service.name" name="serviceProviderName" #serviceProviderName="ngModel">
+            <div *ngIf="serviceProviderName.errors && (serviceProviderName.dirty || serviceProviderName.touched)"
+                 class="alert alert-danger">
+                <div [hidden]="!serviceProviderName.errors.required">
+                    Service provider name field is required
+                </div>
+            </div>
         </div>
     </div>
     <div class="form-group row">
         <label for="serviceProviderCategory" class="col-sm-2 form-control-label">Category</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" id="serviceProviderCategory" placeholder="Business category"
-                   [(ngModel)]="service.businessCategory" name="serviceProviderCategory">
+            <input required type="text" class="form-control" id="serviceProviderCategory"
+                   placeholder="Business category"
+                   [(ngModel)]="service.businessCategory" name="serviceProviderCategory"
+                   #serviceProviderCategory="ngModel">
+            <div *ngIf="serviceProviderCategory.errors && (serviceProviderCategory.dirty || serviceProviderCategory.touched)"
+                 class="alert alert-danger">
+                <div [hidden]="!serviceProviderCategory.errors.required">
+                    Business category field is required
+                </div>
+            </div>
         </div>
     </div>
 
@@ -19,19 +34,30 @@
     <div class="form-group row">
         <label for="registerName" class="col-sm-2 form-control-label">Register Name</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" id="registerName"
+            <input required type="text" class="form-control" id="registerName"
                    placeholder="Name of a person who register a Service Provider"
                    [(ngModel)]="service.registerDetails.name"
-                   name="registerName">
+                   name="registerName" #registerName="ngModel">
+            <div *ngIf="registerName.errors && (registerName.dirty || registerName.touched)" class="alert alert-danger">
+                <div [hidden]="!registerName.errors.required">
+                    Register Name field is required
+                </div>
+            </div>
         </div>
     </div>
     <div class="form-group row">
         <label for="registerSurname" class="col-sm-2 form-control-label">Register Surname</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" id="registerSurname"
+            <input required type="text" class="form-control" id="registerSurname"
                    placeholder="Surname of a person who register a Service Provider"
                    [(ngModel)]="service.registerDetails.surname"
-                   name="registerSurname">
+                   name="registerSurname" #registerSurname="ngModel">
+            <div *ngIf="registerSurname.errors && (registerSurname.dirty || registerSurname.touched)"
+                 class="alert alert-danger">
+                <div [hidden]="!registerSurname.errors.required">
+                    Register Surname field is required
+                </div>
+            </div>
         </div>
     </div>
 
@@ -39,7 +65,7 @@
     <div class="form-group row">
         <label for="address" class="col-sm-2 form-control-label">Business Address</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" id="address"
+            <input required type="text" class="form-control" id="address"
                    placeholder="Business Address of a Service Provider"
                    [ngModel]="service.addressDetails.address"
                    (blur)="processLocation(address)"
@@ -76,15 +102,20 @@
     <div class="form-group row">
         <label for="phoneNumber" class="col-sm-2 form-control-label">Phone Number</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" id="phoneNumber"
+            <input required type="text" class="form-control" id="phoneNumber"
                    placeholder="Phone Number" [(ngModel)]="service.contactDetails.phoneNumber1"
-                   name="phoneNumber">
+                   name="phoneNumber" #phoneNumber="ngModel">
+            <div *ngIf="phoneNumber.errors && (phoneNumber.dirty || phoneNumber.touched)" class="alert alert-danger">
+                <div [hidden]="!phoneNumber.errors.required">
+                    Phone Number field is required
+                </div>
+            </div>
         </div>
     </div>
     <div class="form-group row">
         <label for="webSite" class="col-sm-2 form-control-label">Website</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" id="webSite"
+            <input required type="text" class="form-control" id="webSite"
                    placeholder="Site URL"
                    [(ngModel)]="service.contactDetails.webSite"
                    name="webSite">
@@ -95,7 +126,8 @@
     <div class="form-group row">
         <label for="region" class="col-sm-2 form-control-label">Region</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" id="region" disabled [(ngModel)]="region.name" name="region">
+            <input required type="text" class="form-control" id="region" disabled [(ngModel)]="region.name"
+                   name="region">
         </div>
     </div>
 
