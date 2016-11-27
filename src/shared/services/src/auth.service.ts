@@ -50,7 +50,7 @@ export class AuthService {
         });
     }
 
-    public login(options = {}) {
+    public login(options = {allowedConnections: ['Username-Password-Authentication']}) {
         this.lock.show(options);
     };
 
@@ -80,7 +80,7 @@ export class AuthService {
     };
 
     public isBusinessUser(){
-        return this.hasRole('user');
+        return this.hasRole('merchant');
     };
 
     public isAdmin() {
@@ -89,9 +89,9 @@ export class AuthService {
 
     private hasRole(role: string) {
         return this.userProfile
-            && this.userProfile.app_metadata
-            && this.userProfile.app_metadata.roles
-            && this.userProfile.app_metadata.roles.indexOf(role) > -1;
+            && this.userProfile.user_metadata
+            && this.userProfile.user_metadata.roles
+            && this.userProfile.user_metadata.roles.indexOf(role) > -1;
     }
 
     public logout() {
