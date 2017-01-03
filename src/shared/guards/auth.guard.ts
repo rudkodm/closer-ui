@@ -65,7 +65,7 @@ export class ProviderDataWasAdded implements CanActivate{
             this.router
                 .navigate(['alert'])
                 .then(() => this.alertsService.addAlert({
-                    severity: 'warning',
+                    severity: 'info',
                     title: "Mandatory data wasn't provided",
                     msg: "Please fill all requiter information on Info page before you will be allowed to proceed further"
                 }));

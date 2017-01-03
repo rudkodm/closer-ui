@@ -33,7 +33,7 @@ export class UserPromotionsComponent implements OnInit {
 
     doSave() {
         if (this.isAddNewOpt)  this.saveOpt(this.promotion);
-        else  this.updateOpt(this.promotion);
+        else this.updateOpt(this.promotion);
 
         this.clear();
         this.modal.close();

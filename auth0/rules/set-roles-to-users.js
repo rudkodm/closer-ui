@@ -4,8 +4,13 @@ function (user, context, callback) {
     user.user_metadata = user.user_metadata || {};
 
     var addRolesToUser = function(user, context,  cb) {
-        if (context.clientName.indexOf('closer-admin-app') > -1) {
+        var isAdminApp = context.clientName.indexOf('closer-admin-app') > -1;
+        var isAdmin = !!user.user_metadata.roles && user.user_metadata.roles.indexOf("admin") > -1;
+        var isNotAdmin = !isAdmin;
+        if (isAdminApp && isNotAdmin) {
             cb(null, ['merchant']);
+        } else {
+            cb(null, user.user_metadata.roles);
         }
     };
 
