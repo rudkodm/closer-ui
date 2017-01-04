@@ -21,9 +21,6 @@
             </tr>
             </tbody>
         </table>
-        <div class="card-footer text-muted">
-            <button type="button" class="btn btn-primary" (click)="doAdd()">Add</button>
-        </div>
     </div>
 </div>
 
@@ -40,6 +37,6 @@
     <modal-footer>
         <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Cancel</button>
         <button type="button" class="btn btn-primary" (click)="doSave()">Save</button>
-        <button *ngIf="!isAddNewOpt" type="button" class="btn btn-danger" (click)="doDelete()">Delete</button>
+        <button type="button" class="btn btn-danger" (click)="doDelete()">Delete</button>
     </modal-footer>
 </modal>

@@ -14,7 +14,6 @@ export class PromotionsComponent implements OnInit {
     promotions: Promotion[];
     promotion: Promotion = new Promotion();
     error: Error;
-    isAddNewOpt: Boolean = false;
 
     @ViewChild(ModalComponent)
     modal: ModalComponent;
@@ -32,17 +31,9 @@ export class PromotionsComponent implements OnInit {
     }
 
     doSave() {
-        if (this.isAddNewOpt)  this.saveOpt(this.promotion);
-        else  this.updateOpt(this.promotion);
-
+        this.updateOpt(this.promotion);
         this.clear();
         this.modal.close();
-    }
-
-    private saveOpt(promotion: Promotion) {
-        this.promotionService.save(promotion)
-            .then(p => this.promotions.push(p))
-            .catch(error => this.error = error)
     }
 
     private updateOpt(promotion: Promotion) {
@@ -54,11 +45,6 @@ export class PromotionsComponent implements OnInit {
 
     doEdit(promotion: Promotion) {
         this.promotion = Utils.clone(promotion);
-        this.modal.open(this.modalSize);
-    }
-
-    doAdd() {
-        this.isAddNewOpt = true;
         this.modal.open(this.modalSize);
     }
 
@@ -83,7 +69,6 @@ export class PromotionsComponent implements OnInit {
     }
 
     private clear() {
-        this.isAddNewOpt = false;
         this.promotion = new Promotion();
     }
 }

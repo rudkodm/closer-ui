@@ -1,7 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit} from "@angular/core";
 import {ServiceProvider, Region} from "../../shared/model";
-import {NgModel} from "@angular/forms";
-import {LocationService} from "../../shared/services/src/location.service";
 import {StorageService} from "../../shared/services/src/storage.service";
 import {ProvidersService} from "../../shared/services/src/providers.service";
 import {RegionsService} from "../../shared/services/src/regions.service";

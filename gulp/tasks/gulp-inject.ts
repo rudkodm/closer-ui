@@ -20,13 +20,13 @@ const bs = getBrowserSync();
  */
 var envDeclare = function (destinationDirectory: string) {
     let env = process.env;
-    console.log(env);
     let config = {
         API_HOST: env.API_HOST,
         GOOGLE_API_KEY: env.GOOGLE_API_KEY,
         AUTH_CLIENT_ID: env.AUTH_CLIENT_ID,
         AUTH_DOMAIN: env.AUTH_DOMAIN
     };
+    console.log(config);
     let env_script = `global.env = ${JSON.stringify(config)}`;
     gulp.src(ENV_VARIABLES, {cwd: destinationDirectory})
         .pipe(replace(ENV, env_script))

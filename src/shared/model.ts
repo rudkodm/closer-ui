@@ -29,6 +29,7 @@ export class DefaultLocation extends Location {
 export class Promotion implements Unique {
     id: string;
     serviceId: string;
+    regionId: String;
     promoCode: string;
     media: string;
     title: string;

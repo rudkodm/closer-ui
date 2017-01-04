@@ -1,15 +1,15 @@
 import {Component, OnInit, ViewChild} from "@angular/core";
-import {ModalComponent} from 'ng2-bs4-modal/ng2-bs4-modal'
+import {ModalComponent} from "ng2-bs4-modal/ng2-bs4-modal";
 import {Promotion} from "../../shared/model";
 import {PromotionsService} from "../../shared/services/src/promotions.service";
-
 import {Utils} from "../../shared/helpers/response.helpers";
 import {StorageService} from "../../shared/services/src/storage.service";
+import {ProvidersService} from "../../shared/services/src/providers.service";
 
 @Component({
-    selector: 'promotions',
-    templateUrl: 'components/promotions/promotions.component.html',
-    styleUrls: ['components/promotions/promotions.component.css']
+    selector: 'user-promotions',
+    templateUrl: 'components/user-promotions/user-promotions.component.html',
+    styleUrls: ['components/user-promotions/user-promotions.component.css']
 })
 export class UserPromotionsComponent implements OnInit {
     promotions: Promotion[];
@@ -21,7 +21,7 @@ export class UserPromotionsComponent implements OnInit {
     modal: ModalComponent;
     modalSize = 'lg';
 
-    constructor(private promotionService: PromotionsService, private storage: StorageService) {
+    constructor(private promotionService: PromotionsService, private storage: StorageService, private providerService: ProvidersService) {
     }
 
     ngOnInit() {
@@ -40,8 +40,15 @@ export class UserPromotionsComponent implements OnInit {
     }
 
     private saveOpt(promotion: Promotion) {
-        this.promotionService.save(promotion)
-            .then(p => this.promotions.push(p))
+        let serviceId = this.storage.getProviderId();
+        this.providerService.getServiceProviderById(serviceId)
+            .then(provider => {
+                promotion.serviceId = provider.id;
+                promotion.regionId = provider.regionId;
+                return promotion
+            })
+            .then(promo => this.promotionService.save(promo))
+            .then(promo => this.promotions.push(promo))
             .catch(error => this.error = error)
     }
 
